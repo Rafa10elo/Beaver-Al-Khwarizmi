@@ -9,6 +9,8 @@ public class Shipment implements Comparable<Shipment>{
     String destination;
     double price;
 
+    public Shipment() {
+    }
 
     // Constructor
     public Shipment(int shipmentId, LocalDate deliveryDate) {
