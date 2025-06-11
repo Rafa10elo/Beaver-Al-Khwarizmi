@@ -1,7 +1,5 @@
 package Model;
 
-//import javax.crypto.KEM;
-
 public class Avl <T extends Comparable<T>> {
    public NODE root ;
 
@@ -14,6 +12,13 @@ public class Avl <T extends Comparable<T>> {
             this.key = key;
             height = 0;
         }
+    }
+
+    private KeyExtractor<T, Integer> keyExtractor;
+
+    public Avl(KeyExtractor<T, Integer> extractor) {
+        this.keyExtractor = extractor;
+        root = null;
     }
 
     public void print(){
@@ -59,20 +64,17 @@ public class Avl <T extends Comparable<T>> {
         return x;
     }
 
-    public Product searchHelper(int key){
-        Product product = new Product(key);
-        return search(root,key);
+    public T searchHelper(int keyValue) {
+        return search(root, keyValue);
     }
 
-    private Product search(NODE node,int key){
+    private T search(NODE node, int keyValue) {
         if (node == null) return null;
-        Product current = (Product) node.key;
-        if (key == current.getProductID())
-            return current;
-        if (key < current.getProductID())
-            return search(node.left, key);
-        else
-            return search(node.right, key);
+
+        int maybeTony = Integer.compare(keyValue, keyExtractor.getKey(node.key));
+        if (maybeTony == 0) return node.key;
+        else if (maybeTony < 0) return search(node.left, keyValue);
+        else return search(node.right, keyValue);
     }
 
     public void insertHelper(T key){
@@ -114,59 +116,50 @@ public class Avl <T extends Comparable<T>> {
     }
 
     public void deleteHelper(int id) {
-        Product product = new Product(id);
-        root = delete(root, (T)product);
+        root = delete(root, id);
     }
 
-    private NODE delete(NODE root, T key) {
-        if (root == null)
-            return null;
+    private NODE delete(NODE node, int id) {
+        if (node == null) return null;
 
-        int tony = key.compareTo(root.key);
-        if (tony < 0)
-            root.left = delete(root.left, key);
-        else if (tony > 0)
-            root.right = delete(root.right, key);
-        else {
-            if ((root.left == null) || (root.right == null)) {
-                NODE temp ;
-                if(root.left!=null)
-                    temp=root.left;
-                else
-                    temp=root.right;
+        int maybeTony = Integer.compare(id, keyExtractor.getKey(node.key));
 
-                if (temp == null)
-                    return null;
-                else
-                    return temp;
+        if (maybeTony < 0) {
+            node.left = delete(node.left, id);
+        } else if (maybeTony > 0) {
+            node.right = delete(node.right, id);
+        } else {
+            if (node.left == null || node.right == null) {
+                NODE temp = (node.left != null) ? node.left : node.right;
+                return temp;
             }
 
-            NODE temp = getMinValueNode(root.right);
-            root.key = temp.key;
-            root.right = delete(root.right, temp.key);
+            NODE temp = getMinValueNode(node.right);
+            node.key = temp.key;
+            node.right = delete(node.right, keyExtractor.getKey(temp.key));
         }
 
-        root.height = Math.max(height(root.left), height(root.right)) + 1;
+        node.height = Math.max(height(node.left), height(node.right)) + 1;
 
-        int balance = getBalance(root);
+        int balance = getBalance(node);
 
-        if (balance > 1 && getBalance(root.left) >= 0)
-            return rightRotate(root);
+        if (balance > 1 && getBalance(node.left) >= 0)
+            return rightRotate(node);
 
-        if (balance > 1 && getBalance(root.left) < 0) {
-            root.left = leftRotate(root.left);
-            return rightRotate(root);
+        if (balance > 1 && getBalance(node.left) < 0) {
+            node.left = leftRotate(node.left);
+            return rightRotate(node);
         }
 
-        if (balance < -1 && getBalance(root.right) <= 0)
-            return leftRotate(root);
+        if (balance < -1 && getBalance(node.right) <= 0)
+            return leftRotate(node);
 
-        if (balance < -1 && getBalance(root.right) > 0) {
-            root.right = rightRotate(root.right);
-            return leftRotate(root);
+        if (balance < -1 && getBalance(node.right) > 0) {
+            node.right = rightRotate(node.right);
+            return leftRotate(node);
         }
 
-        return root;
+        return node;
     }
 
     private NODE getMinValueNode(NODE node) {
