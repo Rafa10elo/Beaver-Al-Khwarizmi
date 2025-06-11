@@ -25,7 +25,9 @@ public class Main {
 //        op.ifPresent(name -> System.out.println(name));
 //        System.out.println(op.isEmpty());
 //        productAvl.print();
-        Avl<Product> avl = new Avl<>();
+        Avl<Product> avl = new Avl<>(Product::getProductID);
+        Product product1 = new Product(1);
+        avl.insertHelper(product1);
         avl.insertHelper(new Product(10, "A", 5.0, 100));
         avl.insertHelper(new Product(20, "B", 10.0, 200));
         avl.insertHelper(new Product(30, "C", 15.0, 300));
@@ -36,7 +38,6 @@ public class Main {
         avl.print();
         System.out.println("----------");
         System.out.println(avl.searchHelper(5));
-        System.out.println("----------");
         avl.deleteHelper(8);
         System.out.println("----------");
         avl.inorderHelper();
