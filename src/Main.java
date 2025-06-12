@@ -1,5 +1,7 @@
+import Control.ProductController;
 import Model.Avl;
 import Model.Product;
+import repository.ProductRepo;
 
 public class Main {
     public static void main(String[] args) {
@@ -26,9 +28,17 @@ public class Main {
 //        System.out.println(op.isEmpty());
 //        productAvl.print();
         Avl<Product> avl = new Avl<>(Product::getProductID);
+        ProductController pc=new ProductController(avl);
+//        Avl<Product> avl = new Avl<>(new KeyExtractor<Product, Integer>() {
+//            @Override
+//            public Integer getKey(Product p) {
+//                return p.getProductID();
+//            }
+//        });
         Product product1 = new Product(1);
+        ProductRepo productRepo=new ProductRepo(avl);
         avl.insertHelper(product1);
-        avl.insertHelper(new Product(10, "A", 5.0, 100));
+        productRepo.insertProduct(new Product(10, "A", 5.0, 100));
         avl.insertHelper(new Product(20, "B", 10.0, 200));
         avl.insertHelper(new Product(30, "C", 15.0, 300));
         avl.insertHelper(new Product(25, "D", 20.0, 400));
@@ -37,11 +47,20 @@ public class Main {
         avl.inorderHelper();
         avl.print();
         System.out.println("----------");
-        System.out.println(avl.searchHelper(5));
-        avl.deleteHelper(8);
+        System.out.println(productRepo.searchProduct(5));
+        productRepo.deleteProduct(8);
         System.out.println("----------");
         avl.inorderHelper();
         avl.print();
+        System.out.println("-----------");
+        System.out.println(product1.getPrice());
+        productRepo.updateProductPrice(1,25.0);
+        System.out.println(product1.getPrice());
+        System.out.println("-----------");
+        System.out.println(product1.getQuantity());
+        productRepo.updateProductQuantity(1,5);
+        System.out.println(product1.getQuantity());
+
 
 
     }
