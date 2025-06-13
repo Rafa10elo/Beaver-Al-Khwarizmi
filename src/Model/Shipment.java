@@ -9,16 +9,17 @@ public class Shipment implements Comparable<Shipment>{
     private String destination;
     private double price;
     private boolean priority;
-    private static LocalDate date=LocalDate.now();;
+    private static LocalDate date=LocalDate.now();
+    private LocalDate today=LocalDate.now();
 
     public Shipment() {
     }
 
     //this constructor for the vip shipments where the user can decide the deliveryDate
     // the raise in the price because the shipment is for vip 🤣
-    public Shipment(int shipmentId, LocalDate deliveryDate, String destination, double price) {
+    public Shipment(int shipmentId, int days, String destination, double price) {
         this.shipmentId = shipmentId;
-        this.deliveryDate = deliveryDate;
+        this.deliveryDate = today.plusDays(days);
         this.destination = destination;
         this.price = price+15;
         this.priority = true;
@@ -35,9 +36,10 @@ public class Shipment implements Comparable<Shipment>{
     }
 
     //this shit is just for testing ,fuck i am exhausted
-    public Shipment(int shipmentId, LocalDate deliveryDate, String destination, double price , boolean priority) {
+    public Shipment(int shipmentId, int days, String destination, double price , boolean priority) {
         this.shipmentId = shipmentId;
         this.deliveryDate = deliveryDate;
+        this.deliveryDate = today.plusDays(days);
         this.destination = destination;
         this.price = price+15;
         this.priority = priority;

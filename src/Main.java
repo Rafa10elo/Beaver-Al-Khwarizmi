@@ -71,9 +71,9 @@ public class Main {
         heap.insert(new Shipment(25, "D", 400));
         heap.insert(new Shipment(5, "E", 50));
         heap.insert(new Shipment(7, "F", 60));
-        heap.insertVIP(new Shipment(8, LocalDate.now(), "F", 60));
+        heap.insertVIP(new Shipment(8, 0, "F", 60));
         LocalDate lc=LocalDate.now();
-        heap.insert(new Shipment(44, lc.minusDays(1), "F", 60));
+        heap.insert(new Shipment(44, -1, "F", 60,false));
         heap.printHeap();
         System.out.println("----------");
         heap.removeExpiredShipments();
