@@ -4,22 +4,85 @@ import java.time.LocalDate;
 import java.util.Comparator;
 
 public class Shipment implements Comparable<Shipment>{
-    int shipmentId;
+    private int shipmentId;
     private LocalDate deliveryDate;
-    String destination;
-    double price;
+    private String destination;
+    private double price;
+    private boolean priority;
+    private static LocalDate date=LocalDate.now();;
 
     public Shipment() {
     }
 
-    // Constructor
-    public Shipment(int shipmentId, LocalDate deliveryDate) {
+    //this constructor for the vip shipments where the user can decide the deliveryDate
+    // the raise in the price because the shipment is for vip 🤣
+    public Shipment(int shipmentId, LocalDate deliveryDate, String destination, double price) {
         this.shipmentId = shipmentId;
         this.deliveryDate = deliveryDate;
+        this.destination = destination;
+        this.price = price+15;
+        this.priority = true;
     }
+
+    //this one is for the normal shipments where the deliveryDate is generated automatically
+    public Shipment(int shipmentId, String destination, double price) {
+        this.shipmentId = shipmentId;
+        this.deliveryDate = date;
+        this.destination = destination;
+        this.price = price;
+        this.priority = false;
+        date=date.plusDays(1);
+    }
+
+    //this shit is just for testing ,fuck i am exhausted
+    public Shipment(int shipmentId, LocalDate deliveryDate, String destination, double price , boolean priority) {
+        this.shipmentId = shipmentId;
+        this.deliveryDate = deliveryDate;
+        this.destination = destination;
+        this.price = price+15;
+        this.priority = priority;
+    }
+
+
+    public int getShipmentId() {
+        return shipmentId;
+    }
+
+    public void setShipmentId(int shipmentId) {
+        this.shipmentId = shipmentId;
+    }
+
+    public void setDeliveryDate(LocalDate deliveryDate) {
+        this.deliveryDate = deliveryDate;
+    }
+
+    public String getDestination() {
+        return destination;
+    }
+
+    public void setDestination(String destination) {
+        this.destination = destination;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
+    }
+
+    public boolean isPriority() {
+        return priority;
+    }
+
+    public void setPriority(boolean priority) {
+        this.priority = priority;
+    }
+
     @Override
     public int compareTo(Shipment o) {
-        return Integer.compare(o.shipmentId,this.shipmentId);
+        return Integer.compare(this.shipmentId,o.shipmentId);
     }
 
     // Getter for delivery date
