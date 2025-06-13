@@ -5,7 +5,12 @@ import Model.Product;
 import repository.ProductRepo;
 
 public class ProductController {
-    ProductRepo productRepo = new ProductRepo();
+    Avl<Product> avl;
+
+    public ProductController(Avl<Product> avl) {
+        this.avl = avl;
+    }
+
+    ProductRepo productRepo=new ProductRepo(avl);
     //am I stupid because I don't understand what's the matter with this?
-    //hola
 }
