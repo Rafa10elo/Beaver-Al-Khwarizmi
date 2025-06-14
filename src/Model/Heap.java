@@ -66,6 +66,22 @@ public class Heap {
     public void insertVIP(Shipment vipShipment) {
         LocalDate vipDate = vipShipment.getDeliveryDate();
 
+        //this while to solve the problem if the user entered a taken date by a vip
+        //so we search to the nearest available date
+        while (true) {
+            boolean takenDate = false;
+
+            for (Shipment s : heap) {
+                if (s.isPriority() && s.getDeliveryDate().equals(vipDate)) {
+                    takenDate = true;
+                    break;
+                }
+            }
+
+            if (!takenDate) break;
+            vipDate = vipDate.plusDays(1);
+        }
+        vipShipment.setDeliveryDate(vipDate);
         heap.add(vipShipment);
         heapifyUp(heap.size() - 1);
 
@@ -119,6 +135,7 @@ public class Heap {
         }
     }
 
+    //remember to add it somewhere
     public void removeExpiredShipments() {
         LocalDate today = LocalDate.now();
         int i = 0;

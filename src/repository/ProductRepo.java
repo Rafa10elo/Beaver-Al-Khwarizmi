@@ -5,7 +5,7 @@ import Model.Product;
 
 public class ProductRepo <T extends Comparable<T>>{
 
-    Avl<Product> products ;
+    private Avl<Product> products ;
 
     public ProductRepo(Avl<Product> products) {
         this.products = products;
