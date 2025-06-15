@@ -10,7 +10,7 @@ public class Shipment implements Comparable<Shipment>{
     private String destination;
     private double price;
     private boolean priority;
-     static LocalDate date=LocalDate.now();
+    static LocalDate date=LocalDate.now();
     private LocalDate today=LocalDate.now();
 
     public Shipment() {
@@ -21,18 +21,16 @@ public class Shipment implements Comparable<Shipment>{
     public Shipment(int days, String destination, double price) {
         this.shipmentId = cnt++;
         //to prevent the past dates and bullying the stupid who would enter a negative number of days
-        //(by adding them to the end of the heap and making them a normal dudes)
+        //(by adding them to the end of the heap
         if(days>=0) {
             this.deliveryDate = today.plusDays(days);
-            this.price = price + 15;
-            this.priority = true;
         }
         else{
             this.deliveryDate = date;
             date=date.plusDays(1);
-            this.price = price;
-            this.priority = false;
         }
+        this.price = price + 15;
+        this.priority = true;
         this.destination = destination;
     }
 

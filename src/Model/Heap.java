@@ -61,6 +61,30 @@ public class Heap {
         }
     }
 
+    private LocalDate getNextAvailableDate(LocalDate date){
+        while (isDateTaken(date)){
+            date =date.plusDays(1);
+        }
+        return date;
+    }
+
+    private boolean isDateTaken(LocalDate date) {
+        for (Shipment s : heap) {
+            if (s.getDeliveryDate().equals(date)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean isDateTakenByVIP(LocalDate date) {
+        for (Shipment s : heap) {
+            if (s.isPriority() && s.getDeliveryDate().equals(date)) {
+                return true;
+            }
+        }
+        return false;
+    }
     // okeyyy💅🏻 this to add the vip shipments
     // (add it to the arraylist and edit all the other dates after it by adding one day to there date)
     public void insertVIP(Shipment vipShipment) {
@@ -88,7 +112,13 @@ public class Heap {
         for (Shipment s : heap) {
             if (!s.isPriority() && !s.equals(vipShipment)
                     && !s.getDeliveryDate().isBefore(vipDate)) {
-                s.setDeliveryDate(s.getDeliveryDate().plusDays(1));
+                LocalDate newDate = s.getDeliveryDate().plusDays(1);
+
+                while (isDateTaken(newDate) || isDateTakenByVIP(newDate)) {
+                    newDate = newDate.plusDays(1);
+                }
+
+                s.setDeliveryDate(newDate);
             }
         }
 
@@ -103,6 +133,8 @@ public class Heap {
     }
 
     public void insert(Shipment value) {
+        LocalDate adjustedDate = getNextAvailableDate(value.getDeliveryDate());
+        value.setDeliveryDate(adjustedDate);
         heap.add(value);
         heapifyUp(heap.size() - 1);
     }
@@ -141,7 +173,7 @@ public class Heap {
         int i = 0;
         while (i < heap.size()) {
             Shipment s=heap.get(i);
-            if (!s.getDeliveryDate().isAfter(today)&& s.getDeliveryDate().isBefore(today)) {
+            if (s.getDeliveryDate().isBefore(today)) {
                 delete(s);
             }
             else
@@ -158,4 +190,3 @@ public class Heap {
     }
 
 }
-

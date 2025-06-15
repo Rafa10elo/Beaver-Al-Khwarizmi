@@ -32,35 +32,48 @@ public class ShipmentRepo {
     }
 
     //this is specific to made you a noble (non vip shipment to a vip shipment)
-    public void promoteToVip(int id,int days){
+    public boolean promoteToVip(int id,int days){
         Shipment shipment;
         Shipment shipment1;
         shipment=shipmentAvl.searchHelper(id);
-        delete(id);
-        shipment1=new Shipment(days, shipment.getDestination(), shipment.getPrice());
-        shipment1.setShipmentId(id);
-        insert(shipment1);
+        if (shipment.isPriority()){
+            shipment1=new Shipment(days, shipment.getDestination(), shipment.getPrice());
+            shipment1.setShipmentId(id);
+            delete(id);
+            insert(shipment1);
+        }
+            return false;
     }
 
-    public void demoteFromVip(int id){
+    public boolean demoteFromVip(int id){
         Shipment shipment,shipment1;
         shipment=shipmentAvl.searchHelper(id);
-        delete(id);
-        //the minus 15 ,cus the vip shipment has an increased price
-        // (it's now a normal shipment so there is no need to the raise)
-        shipment1=new Shipment(shipment.getDestination(),shipment.getPrice()-15);
-        shipment1.setShipmentId(id);
-        insert(shipment1);
+        if(shipment.isPriority()){
+            delete(id);
+            //the minus 15 ,cus the vip shipment has an increased price
+            // (it's now a normal shipment so there is no need to the raise)
+            shipment1=new Shipment(shipment.getDestination(),shipment.getPrice()-15);
+            shipment1.setShipmentId(id);
+            insert(shipment1);
+            return true;
+        }
+            return false;
+
     }
 
     // I wanted to name it updateTheDate,but i have to be professional
-    public void rescheduleShipment(int id, int days){
+    public boolean rescheduleShipment(int id, int days){
         Shipment shipment,shipment1;
         shipment=shipmentAvl.searchHelper(id);
-        delete(id);
-        shipment1=new Shipment(days,shipment.getDestination(),shipment.getPrice());
-        shipment1.setShipmentId(id);
-        insert(shipment1);
+        if(shipment.isPriority()){
+            delete(id);
+            shipment1=new Shipment(days,shipment.getDestination(),shipment.getPrice());
+            shipment1.setShipmentId(id);
+            insert(shipment1);
+            return true;
+        }
+            return false;
+
     }
 
 }
