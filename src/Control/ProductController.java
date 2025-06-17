@@ -22,6 +22,7 @@ import View.CustomDialog;
 import View.MainFrame;
 import View.ProductPanel;
 import View.ProductsPanel;
+import repository.ProductRepo;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -29,27 +30,31 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 public class ProductController {
-    Avl<Product> avl;
     ProductsPanel productsPanel;
     ArrayList<ProductPanel> productPanels;
-    ArrayList<Product> products;
+    ProductRepo<Product> products;
     CustomDialog editDialog;
 
 
-    public ProductController(ProductsPanel productsPanel, ArrayList<Product> products,ArrayList<ProductPanel> productPanels) {
+    public ProductController(ProductsPanel productsPanel, ProductRepo<Product> products,ArrayList<ProductPanel> productPanels) {
         this.productsPanel = productsPanel;
         this.products = products;
         this.productPanels = productPanels;
         productsPanel.addProductButton.addActionListener(addListener);
         productsPanel.searchButton.addActionListener(searchButtonListener);
+
         loadProducts();
     }
 
     public void loadProducts() {
         productsPanel.clearProducts();
-        for (Product product : products) {
+        ArrayList<Product> james = products.getList();
+
+
+        for (Product product : james) {
             productsPanel.addProductPanel(product);
         }
+
         for(ProductPanel productPanel: productPanels){
             productPanel.deleteButton.addActionListener(deleteListener);
             productPanel.editButton.addActionListener(editListener);
@@ -66,9 +71,10 @@ public class ProductController {
             ProductPanel productPanel= (ProductPanel) (((JButton)e.getSource()).getParent());
             Product product = productPanel.getProduct();
 
-            products.remove(product);
+            products.deleteProduct(product.getProductID());
             productPanels.remove(productPanel);
 
+            System.out.println(products.getList().size());
             loadProducts();
         }
     };
@@ -82,7 +88,7 @@ public class ProductController {
             Product product = new Product(ProductsPanel.cnt++,editDialog.name.getText(),Double.parseDouble(editDialog.price.getText()),Integer.parseInt(editDialog.amount.getText()));
 
             productsPanel.addProductPanel(product);
-            products.add(product);
+            products.insertProduct(product);
 
             loadProducts();
 
@@ -124,7 +130,8 @@ public class ProductController {
 
             int id = Integer.parseInt(input);
 
-            for (Product product: products){
+            ArrayList<Product> james = products.getList();
+            for (Product product: james){
                 if(id==product.getProductID()){
                     productsPanel.clearProducts();
                     productsPanel.addProductPanel(product);

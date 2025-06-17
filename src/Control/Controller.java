@@ -1,15 +1,18 @@
 package Control;
 
+import Model.Avl;
 import Model.Product;
 import Model.Shipment;
 import View.*;
+import repository.ProductRepo;
 
 import java.time.LocalDate;
 import java.util.*;
 
 public class Controller {
     private ArrayList<Shipment> shipmentList;
-    private ArrayList<Product> productList;
+    private Avl<Product> productList;
+    private ProductRepo<Product> productProductRepo;
 
     private MainFrame mainFrame;
     private ShipmentsPanel shipmentsPanel;
@@ -35,20 +38,22 @@ public class Controller {
         System.out.println("im offing myself "+shipmentList.getFirst().getShipmentId());
 
 
-        productList = new ArrayList<>();
-        productList.add(new Product(1, "Chair", 45.0, 10));
-        productList.add(new Product(2, "Table", 90.0, 5));
-        productList.add(new Product(3, "Chair", 45.0, 10));
-        productList.add(new Product(4, "Table", 90.0, 5));
-        productList.add(new Product(5, "Chair", 45.0, 10));
-        productList.add(new Product(6, "Table", 90.0, 5));
+        productList = new Avl<Product>(Product::getProductID);
+        productList.insertHelper(new Product(1, "Chair", 45.0, 10));
+        productList.insertHelper(new Product(2, "Table", 90.0, 5));
+        productList.insertHelper(new Product(3, "Chair", 45.0, 10));
+        productList.insertHelper(new Product(4, "Table", 90.0, 5));
+        productList.insertHelper(new Product(5, "Chair", 45.0, 10));
+        productList.insertHelper(new Product(6, "Table", 90.0, 5));
 
 
+        productProductRepo  = new ProductRepo<>(productList);
+        productProductRepo.insertProduct(new Product(7, "Table", 90.0, 5));
         shipmentsPanel = new ShipmentsPanel(shipmentPanels);
         productsPanel = new ProductsPanel(productPanels);
 
 
-        productController = new ProductController(productsPanel,productList,productPanels);
+        productController = new ProductController(productsPanel,productProductRepo,productPanels);
         shipmentController = new ShipmentController(shipmentsPanel,shipmentPanels,shipmentList);
 
         mainPanel = new MainPanel();

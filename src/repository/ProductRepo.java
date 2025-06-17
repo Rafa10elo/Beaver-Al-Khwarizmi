@@ -3,9 +3,14 @@ package repository;
 import Model.Avl;
 import Model.Product;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class ProductRepo <T extends Comparable<T>>{
 
     private Avl<Product> products ;
+
+
 
     public ProductRepo(Avl<Product> products) {
         this.products = products;
@@ -40,5 +45,14 @@ public class ProductRepo <T extends Comparable<T>>{
     public Product searchProduct(int id){
         return products.searchHelper(id);
     }
+
+
+    public ArrayList<Product> getList(){
+        ArrayList <Product> James= new ArrayList<>();
+        products.getAllStuff(James);
+        return James;
+
+    }
+
 
 }

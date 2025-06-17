@@ -1,5 +1,7 @@
 package Model;
 
+import java.util.ArrayList;
+
 public class Avl <T extends Comparable<T>> {
    public NODE root ;
 
@@ -180,5 +182,18 @@ public class Avl <T extends Comparable<T>> {
        System.out.println(root.key);
        inorder(root.right);
    }
+
+    public void getAllStuff(ArrayList<T>JIM){
+        inorder(root,JIM);
+
+        System.out.println ("Arrasssss"  + JIM.size());
+    }
+
+    private void inorder(NODE root, ArrayList<T> james){
+        if (root == null) return;
+        inorder(root.left,james);
+        james.add(root.key);
+        inorder(root.right,james);
+    }
 
 }
