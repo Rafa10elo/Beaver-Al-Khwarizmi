@@ -1,3 +1,4 @@
+import Control.Controller;
 import Control.ProductController;
 import Model.Avl;
 import Model.Heap;
@@ -46,6 +47,7 @@ public class Main {
         shipmentHeap.printHeap();
 
 
+        Controller controller = new Controller();
 
     }
 }
