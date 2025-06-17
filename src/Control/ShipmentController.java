@@ -1,7 +1,7 @@
 package Control;
-import Model.Product;
 import Model.Shipment;
 import View.*;
+import repository.ShipmentRepo;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -10,18 +10,14 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 public class ShipmentController {
-
     ShipmentsPanel shipmentsPanel;
     ArrayList<ShipmentPanel> shipmentPanels;
-    ArrayList<Shipment> shipments;
+    ShipmentRepo shipments;
 
-
-    public ShipmentController(ShipmentsPanel shipmentsPanel,ArrayList<ShipmentPanel> shipmentPanels,ArrayList<Shipment> shipments) {
+    public ShipmentController(ShipmentsPanel shipmentsPanel,ArrayList<ShipmentPanel> shipmentPanels,ShipmentRepo shipments) {
         this.shipmentsPanel = shipmentsPanel;
         this.shipmentPanels = shipmentPanels;
         this.shipments = shipments;
-
-        System.out.println("in shipController"+shipments.getFirst().getDestination());
 
         shipmentsPanel.addProductButton.addActionListener(addListener);
         shipmentsPanel.searchButton.addActionListener(searchButtonListener);
@@ -30,9 +26,10 @@ public class ShipmentController {
     }
 
     public void loadShipments() {
+        shipments.expiredShipments();
         shipmentsPanel.clearShipments();
-        for (Shipment shipment : shipments) {
-            System.out.println(shipment.getShipmentId());
+        ArrayList<Shipment> shipmentArrayList=shipments.getList();
+        for (Shipment shipment : shipmentArrayList) {
             shipmentsPanel.addShipmentPanel(shipment);
         }
         for(ShipmentPanel shipmentPanel: shipmentPanels){
@@ -47,15 +44,12 @@ public class ShipmentController {
             ShipmentPanel shipmentPanel= (ShipmentPanel) (((JButton)e.getSource()).getParent());
             Shipment shipment = shipmentPanel.getShipment();
 
-            shipments.remove(shipment);
+            shipments.delete(shipment.getShipmentId());
             shipmentPanels.remove(shipmentPanel);
-            System.out.println(shipment.getShipmentId());
             loadShipments();
-            System.out.println("delete");
 
         }
     };
-
 
     ActionListener editListener = new ActionListener() {
         @Override
@@ -74,7 +68,6 @@ public class ShipmentController {
         }
     };
 
-
     ActionListener addListener = new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -84,11 +77,10 @@ public class ShipmentController {
             Shipment shipment = new Shipment(ShipmentsPanel.cnt++,dialog.name.getText(),Double.parseDouble(dialog.price.getText()));
 
             shipmentsPanel.addShipmentPanel(shipment);
-            shipments.add(shipment);
+            shipments.insert(shipment);
             loadShipments();
         }
     };
-
 
     ActionListener searchButtonListener = new ActionListener() {
         @Override
@@ -108,8 +100,9 @@ public class ShipmentController {
             }
 
             int id = Integer.parseInt(input);
+            ArrayList<Shipment> shipmento =shipments.getList();
 
-            for (Shipment shipment: shipments){
+            for (Shipment shipment: shipmento){
                 if(id==shipment.getShipmentId()){
                     shipmentsPanel.clearShipments();
                     shipmentsPanel.addShipmentPanel(shipment);
@@ -127,7 +120,6 @@ public class ShipmentController {
             }
         }
     };
-
 
 }
 

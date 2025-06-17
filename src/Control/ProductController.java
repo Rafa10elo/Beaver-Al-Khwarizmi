@@ -1,29 +1,11 @@
-//package Control;
-//
-//import Model.Avl;
-//import Model.Product;
-//import repository.ProductRepo;
-//
-//public class ProductController {
-//    Avl<Product> avl;
-//
-//    public ProductController(Avl<Product> avl) {
-//        this.avl = avl;
-//    }
-//
-//    ProductRepo productRepo=new ProductRepo(avl);
-//    //am I stupid because I don't understand what's the matter with this?
-//}
 package Control;
 
-import Model.Avl;
 import Model.Product;
 import View.CustomDialog;
 import View.MainFrame;
 import View.ProductPanel;
 import View.ProductsPanel;
 import repository.ProductRepo;
-
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -79,13 +61,12 @@ public class ProductController {
         }
     };
 
-
     ActionListener addListener = new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
 
             editDialog = productsPanel.createAddProductDialog();
-            Product product = new Product(ProductsPanel.cnt++,editDialog.name.getText(),Double.parseDouble(editDialog.price.getText()),Integer.parseInt(editDialog.amount.getText()));
+            Product product = new Product(editDialog.name.getText(),Double.parseDouble(editDialog.price.getText()),Integer.parseInt(editDialog.amount.getText()));
 
             productsPanel.addProductPanel(product);
             products.insertProduct(product);
@@ -94,8 +75,6 @@ public class ProductController {
 
         }
     };
-
-
 
     ActionListener editListener = new ActionListener() {
         @Override
@@ -109,7 +88,6 @@ public class ProductController {
             loadProducts();
         }
     };
-
 
     ActionListener searchButtonListener = new ActionListener() {
         @Override
@@ -130,29 +108,21 @@ public class ProductController {
 
             int id = Integer.parseInt(input);
 
-            ArrayList<Product> james = products.getList();
-            for (Product product: james){
-                if(id==product.getProductID()){
-                    productsPanel.clearProducts();
-                    productsPanel.addProductPanel(product);
-                    break;
-                }
-                else {
-                    productsPanel.clearProducts();
-                    JLabel notFoundLabel = new JLabel("sorry, product not found :(");
-                    notFoundLabel.setFont(MainFrame.FONT_REGULAR);
-                    notFoundLabel.setForeground(MainFrame.dark_blue);
-                    productsPanel.addToProductsPanel(notFoundLabel);
+            Product product=products.searchProduct(id);
+            if(product!=null){
+                productsPanel.clearProducts();
+                productsPanel.addProductPanel(product);
+            }
+            else {
+                productsPanel.clearProducts();
+                JLabel notFoundLabel = new JLabel("sorry, product not found :(");
+                notFoundLabel.setFont(MainFrame.FONT_REGULAR);
+                notFoundLabel.setForeground(MainFrame.dark_blue);
+                productsPanel.addToProductsPanel(notFoundLabel);
 
 
-                }
             }
         }
     };
-
-
-
-
-
 
 }

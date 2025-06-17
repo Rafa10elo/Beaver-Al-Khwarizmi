@@ -189,4 +189,12 @@ public class Heap {
         }
     }
 
+    public Shipment peek(){
+        return heap.get(0);
+    }
+
+    public ArrayList<Shipment> Array(){
+        return heap;
+    }
+
 }

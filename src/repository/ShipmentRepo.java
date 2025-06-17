@@ -2,8 +2,10 @@ package repository;
 
 import Model.Avl;
 import Model.Heap;
+import Model.Product;
 import Model.Shipment;
 
+import java.util.ArrayList;
 import java.util.Optional;
 
 public class ShipmentRepo {
@@ -74,6 +76,17 @@ public class ShipmentRepo {
         }
             return false;
 
+    }
+
+    public ArrayList<Shipment> getList(){
+        ArrayList <Shipment> James= new ArrayList<>();
+        James=shipments.Array();
+        return James;
+
+    }
+
+    public void expiredShipments(){
+        shipments.removeExpiredShipments();
     }
 
 }

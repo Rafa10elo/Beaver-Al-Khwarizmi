@@ -5,9 +5,10 @@ public class Product implements Comparable<Product>{
     private String productName;
     private double price;
     private int quantity;
+    private static int cnt=0;
 
-    public Product(int productID, String productName, double price, int quantity) {
-        this.productID = productID;
+    public Product( String productName, double price, int quantity) {
+        this.productID = cnt++;
         this.productName = productName;
         this.price = price;
         this.quantity = quantity;
