@@ -78,8 +78,34 @@ public class ShipmentRepo {
 
     }
 
+    public Shipment theMostPriorityShipment(){
+        return shipments.peek();
+    }
+
+    public Shipment mostExpensiveShipment(){
+        ArrayList<Shipment> shipment=getList();
+        double max=shipment.get(0).getPrice();
+        int j=0;
+        for(int i=1;i<shipment.size();i++){
+            if(max<shipment.get(i).getPrice()) {
+                max=shipment.get(i).getPrice();
+                j=i;
+            }
+        }
+        return shipment.get(j);
+    }
+
+    public Double allCosts(){
+        ArrayList<Shipment> shipment=getList();
+        double sum=0;
+        for(int i=0;i<shipment.size();i++){
+            sum+=shipment.get(i).getPrice();
+        }
+        return sum;
+    }
+
     public ArrayList<Shipment> getList(){
-        ArrayList <Shipment> James= new ArrayList<>();
+        ArrayList <Shipment> James;
         James=shipments.Array();
         return James;
 
