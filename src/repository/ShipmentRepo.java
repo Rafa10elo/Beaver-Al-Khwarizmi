@@ -82,17 +82,17 @@ public class ShipmentRepo {
         return shipments.peek();
     }
 
-    public Shipment mostExpensiveShipment(){
+    public ArrayList<Shipment> mostExpensiveShipment(){
         ArrayList<Shipment> shipment=getList();
-        double max=shipment.get(0).getPrice();
+        ArrayList<Shipment> shipmentArrayList=new ArrayList<>();
+        double avg=allCosts()/shipment.size();
         int j=0;
         for(int i=1;i<shipment.size();i++){
-            if(max<shipment.get(i).getPrice()) {
-                max=shipment.get(i).getPrice();
-                j=i;
+            if(avg<shipment.get(i).getPrice()) {
+                shipmentArrayList.add(shipment.get(i));
             }
         }
-        return shipment.get(j);
+        return shipmentArrayList;
     }
 
     public Double allCosts(){
@@ -114,5 +114,7 @@ public class ShipmentRepo {
     public void expiredShipments(){
         shipments.removeExpiredShipments();
     }
+
+
 
 }

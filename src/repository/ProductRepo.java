@@ -10,8 +10,6 @@ public class ProductRepo <T extends Comparable<T>>{
 
     private Avl<Product> products ;
 
-
-
     public ProductRepo(Avl<Product> products) {
         this.products = products;
     }
@@ -46,12 +44,21 @@ public class ProductRepo <T extends Comparable<T>>{
         return products.searchHelper(id);
     }
 
-
     public ArrayList<Product> getList(){
         ArrayList <Product> James= new ArrayList<>();
         products.getAllStuff(James);
         return James;
 
+    }
+
+    public double InventoryValue(){
+        ArrayList<Product> product=getList();
+        double value=0.0;
+        for(int i=0;i<product.size();i++){
+            Product p=product.get(i);
+            value+=p.getPrice()*p.getQuantity();
+        }
+        return value;
     }
 
 
