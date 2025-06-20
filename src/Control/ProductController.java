@@ -83,8 +83,8 @@ public class ProductController {
             Product product = productPanel.getProduct();
             CustomDialog dialog = productPanel.createEditProductDialog();
             product.setProductName(dialog.name.getText()) ;
-            product.setPrice(Double.parseDouble(dialog.price.getText())) ;
-            product.setQuantity(Integer.parseInt(dialog.amount.getText()));
+            products.updateProductPrice(product,Double.parseDouble(dialog.price.getText()));
+            products.updateProductQuantity(product,Integer.parseInt(dialog.amount.getText()));
             loadProducts();
         }
     };

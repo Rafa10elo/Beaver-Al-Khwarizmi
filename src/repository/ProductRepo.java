@@ -14,22 +14,14 @@ public class ProductRepo <T extends Comparable<T>>{
         this.products = products;
     }
 
-    public boolean updateProductPrice(int id, double newPrice) {
-        Product p = products.searchHelper(id);
-        if (p == null)
-            return false;
+    public void updateProductPrice(Product product, double newPrice) {
         if (newPrice >= 0)
-            p.setPrice(newPrice);
-        return true;
+            product.setPrice(newPrice);
     }
 
-    public boolean updateProductQuantity(int id, int newQuantity) {
-        Product p = products.searchHelper(id);
-        if (p == null)
-            return false;
+    public void updateProductQuantity(Product product, int newQuantity) {
         if (newQuantity >= 0 && newQuantity <= 1000)
-            p.setQuantity(newQuantity);
-        return true;
+            product.setQuantity(newQuantity);
     }
 
     public void deleteProduct(int id){
