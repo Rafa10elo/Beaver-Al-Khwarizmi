@@ -91,6 +91,10 @@ public class ShipmentRepo {
         return shipmentArrayList;
     }
 
+    public Shipment searchShipment(int id){
+        return shipmentAvl.searchHelper(id);
+    }
+
     public Double allCosts(){
         ArrayList<Shipment> shipment=getList();
         double sum=0;

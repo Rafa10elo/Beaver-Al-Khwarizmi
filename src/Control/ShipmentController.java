@@ -100,25 +100,21 @@ public class ShipmentController {
             }
 
             int id = Integer.parseInt(input);
-            ArrayList<Shipment> shipmento =shipments.getList();
 
-            for (Shipment shipment: shipmento){
-                if(id==shipment.getShipmentId()){
-                    shipmentsPanel.clearShipments();
-                    shipmentsPanel.addShipmentPanel(shipment);
-                    break;
-                }
-                else {
-                    shipmentsPanel.clearShipments();
-                    JLabel notFoundLabel = new JLabel("sorry, shipment not found :(");
-                    notFoundLabel.setFont(MainFrame.FONT_REGULAR);
-                    notFoundLabel.setForeground(MainFrame.dark_blue);
-                    shipmentsPanel.addToProductsPanel(notFoundLabel);
-
+            Shipment shipment=shipments.searchShipment(id);
+            if(shipment!=null){
+                shipmentsPanel.clearShipments();
+                shipmentsPanel.addShipmentPanel(shipment);
+            }
+            else {
+                shipmentsPanel.clearShipments();
+                JLabel notFoundLabel = new JLabel("sorry, shipment not found :(");
+                notFoundLabel.setFont(MainFrame.FONT_REGULAR);
+                notFoundLabel.setForeground(MainFrame.dark_blue);
+                shipmentsPanel.addToProductsPanel(notFoundLabel);
 
                 }
             }
-        }
     };
 
 }
