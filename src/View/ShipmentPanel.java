@@ -73,16 +73,23 @@ public class ShipmentPanel extends JPanel {
 
         JTextField editDestination = new JTextField(shipment.getDestination());
         JTextField editPrice = new JTextField(String.valueOf(shipment.getPrice()));
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MMM-yyyy");
-        JTextField editDeliveryDate = new JTextField(shipment.getDeliveryDate().format(formatter));
+        JTextField editDeliveryDate = new JTextField();
         JButton confirmButton = new JButton("okay");
 
-        editShipmentDialog = new CustomDialog(this,"Destination: ","Price: ","Delivery Date: ",editDestination,editPrice,editDeliveryDate,confirmButton, frame);
-        editShipmentDialog.setSize(new Dimension(400, 550));
-        editShipmentDialog.setLocationRelativeTo(null);
-        editShipmentDialog.setVisible(true);
-        return editShipmentDialog;
+        if(shipment.isPriority()){
+            editShipmentDialog = new CustomDialog("Destination: ","Price: ","Days until Arrival: ",editDestination,editPrice,editDeliveryDate,confirmButton, frame);
+            editShipmentDialog.setSize(new Dimension(400, 550));
+            editShipmentDialog.setLocationRelativeTo(null);
+            editShipmentDialog.setVisible(true);
+            return editShipmentDialog;
+        }
+        else{
 
+            editShipmentDialog = new CustomDialog(this,"Destination: ","Price: ",editDestination,editPrice,editDeliveryDate,confirmButton, frame);
+            editShipmentDialog.setSize(new Dimension(400, 550));
+            editShipmentDialog.setLocationRelativeTo(null);
+            editShipmentDialog.setVisible(true);
+            return editShipmentDialog;        }
     }
 
     public Shipment getShipment (){

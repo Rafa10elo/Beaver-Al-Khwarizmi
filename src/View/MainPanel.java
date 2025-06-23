@@ -8,6 +8,8 @@ import java.awt.*;
 public class MainPanel extends JPanel {
     public static JButton productsButton;
     public static JButton shipmentsButton;
+    public static JButton reportButton;
+
 
     public MainPanel() {
         setLayout(new BorderLayout());
@@ -54,9 +56,9 @@ public class MainPanel extends JPanel {
         shipmentsButton.setAlignmentX(Component.CENTER_ALIGNMENT);
 
 
-        shipmentsPanel.add(Box.createRigidArea(new Dimension(0, 90)));
+        shipmentsPanel.add(Box.createRigidArea(new Dimension(0, 50)));
         shipmentsPanel.add(shipmentDesc);
-        shipmentsPanel.add(Box.createRigidArea(new Dimension(0, 120)));
+        shipmentsPanel.add(Box.createRigidArea(new Dimension(0, 30)));
         shipmentsPanel.add(shipmentsButton);
 
         // ------------ Products Panel -----------
@@ -74,10 +76,32 @@ public class MainPanel extends JPanel {
         productsButton.setAlignmentX(Component.CENTER_ALIGNMENT);
 
 
-        productsPanel.add(Box.createRigidArea(new Dimension(0, 90)));
+        productsPanel.add(Box.createRigidArea(new Dimension(0, 50)));
         productsPanel.add(productDesc);
-        productsPanel.add(Box.createRigidArea(new Dimension(0, 120)));
+        productsPanel.add(Box.createRigidArea(new Dimension(0, 30)));
         productsPanel.add(productsButton);
+
+
+        // ------------ Report Panel -----------
+        JPanel reportPanel = new JPanel();
+        reportPanel.setLayout(new BoxLayout(reportPanel,BoxLayout.Y_AXIS));
+
+        reportPanel.setBackground(MainFrame.white);
+        reportPanel.setBorder(BorderFactory.createLineBorder(MainFrame.blue, 2));
+
+        JLabel reportDesc = createLabel("View Detailed and Precise Analysis of our Transport Activity:", MainFrame.FONT_LIGHT, MainFrame.black);
+        reportDesc.setAlignmentX(Component.CENTER_ALIGNMENT); // Center horizontally
+        reportDesc.setHorizontalAlignment(SwingConstants.CENTER);
+
+        reportButton = createTextButton("Report");
+        reportButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+
+        reportPanel.add(Box.createRigidArea(new Dimension(0, 50)));
+        reportPanel.add(reportDesc);
+        reportPanel.add(Box.createRigidArea(new Dimension(0, 20)));
+        reportPanel.add(reportButton);
+
 
         // ===== Add Both Panels Side by Side =====
         gbc.gridy = 1;
@@ -92,6 +116,11 @@ public class MainPanel extends JPanel {
         gbc.insets = new Insets(10, 15, 30, 30);
         gbc.gridx = 1;
         contentPanel.add(productsPanel, gbc);
+
+        gbc.gridwidth = 2;
+        gbc.gridx=0;
+        gbc.gridy = 2;
+        contentPanel.add(reportPanel,gbc);
 
         add(contentPanel, BorderLayout.CENTER);
     }

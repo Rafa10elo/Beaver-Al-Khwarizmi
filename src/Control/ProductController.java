@@ -32,7 +32,6 @@ public class ProductController {
         productsPanel.clearProducts();
         ArrayList<Product> james = products.getList();
 
-
         for (Product product : james) {
             productsPanel.addProductPanel(product);
         }
@@ -72,6 +71,7 @@ public class ProductController {
             products.insertProduct(product);
 
             loadProducts();
+
 
         }
     };

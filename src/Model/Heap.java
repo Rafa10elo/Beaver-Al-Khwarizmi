@@ -88,6 +88,8 @@ public class Heap {
     // okeyyy💅🏻 this to add the vip shipments
     // (add it to the arraylist and edit all the other dates after it by adding one day to there date)
     public void insertVIP(Shipment vipShipment) {
+
+        System.out.println(vipShipment.getPrice());
         LocalDate vipDate = vipShipment.getDeliveryDate();
 
         //this while to solve the problem if the user entered a taken date by a vip
@@ -133,6 +135,7 @@ public class Heap {
     }
 
     public void insert(Shipment value) {
+        System.out.println(value.getPrice());
         LocalDate adjustedDate = getNextAvailableDate(value.getDeliveryDate());
         value.setDeliveryDate(adjustedDate);
         heap.add(value);

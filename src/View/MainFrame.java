@@ -52,7 +52,7 @@ public class MainFrame extends JFrame {
     }
 
 
-    public MainFrame(ShipmentsPanel shipmentsPanel, ProductsPanel productsPanel){
+    public MainFrame(ShipmentsPanel shipmentsPanel, ProductsPanel productsPanel, ReportPanel reportPanel){
 
 
         cardLayout = new CardLayout();
@@ -65,6 +65,7 @@ public class MainFrame extends JFrame {
         cardPanel.add(mainPanel, "MAIN");
         cardPanel.add(shipmentsPanel, "SHIPMENTS");
         cardPanel.add(productsPanel, "PRODUCTS");
+        cardPanel.add(reportPanel,"REPORT");
 
         setContentPane(cardPanel);
         setVisible(true);

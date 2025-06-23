@@ -14,7 +14,7 @@ import java.util.ArrayList;
 public class ShipmentsPanel extends JPanel {
     ArrayList<ShipmentPanel> shipmentPanels;
     JPanel contentPanel;
-    CustomDialog addProductDialog ;
+    AddShipmentDialog addProductDialog ;
     public JButton backButton;
     public JButton addProductButton;
     public JTextField search;
@@ -55,7 +55,7 @@ public class ShipmentsPanel extends JPanel {
         searchButton.setFocusPainted(false);
 //        searchButton.setBorder(new FlatBorder());
         searchButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        searchButton.setBorder( new EmptyBorder(7,4,7,6));
+        searchButton.setBorder( new EmptyBorder(10,6,10,8));
 
         navigationBar.add(searchButton);
 
@@ -105,44 +105,42 @@ public class ShipmentsPanel extends JPanel {
         contentPanel.removeAll();
         contentPanel.revalidate();
         contentPanel.repaint();
+        shipmentPanels.clear();
     }
 
-    public CustomDialog createAddShipment () {
+    public AddShipmentDialog createAddShipment () {
         JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(this);
 
-        JTextField name = new JTextField("destination");
-        JTextField price = new JTextField("0.0");
-        JTextField amount = new JTextField("DD-MMM-YYYY");
-        name.addMouseListener(new MouseAdapter(){
+        JTextField destination = new JTextField("destination");
+        JTextField days = new JTextField();
+        JCheckBox checkbox = new JCheckBox();
+        destination.addMouseListener(new MouseAdapter(){
             @Override
             public void mouseClicked(MouseEvent e){
-                name.setText("");
+                destination.setText("");
             }
         });
-        price.addMouseListener(new MouseAdapter(){
+        days.addMouseListener(new MouseAdapter(){
             @Override
             public void mouseClicked(MouseEvent e){
-                price.setText("");
-            }
-        });
-        amount.addMouseListener(new MouseAdapter(){
-            @Override
-            public void mouseClicked(MouseEvent e){
-                amount.setText("");
+                days.setText("");
             }
         });
 
+
         JButton confirmButton = new JButton("okay");
-        addProductDialog = new CustomDialog(this,"Destination:","Price","Delivery Date:",name,price,amount,confirmButton,frame);
-        addProductDialog.setSize(new Dimension(400, 550));
-        addProductDialog.setLocationRelativeTo(null);
-        addProductDialog.setVisible(true);
+        addProductDialog = new AddShipmentDialog(destination,days,checkbox,frame);
+
         return addProductDialog;
     }
 
+
+
+
+
     private JButton createTextButton(String text) {
         JButton button = new JButton(text);
-        button.setFont(MainFrame.FONT_BOLD.deriveFont(23f));
+        button.setFont(MainFrame.FONT_BOLD.deriveFont(20f));
         button.setFocusPainted(false);
         button.setBackground(MainFrame.dark_blue);
         button.setForeground(MainFrame.white);
@@ -158,6 +156,8 @@ public class ShipmentsPanel extends JPanel {
     }
 
 
+
+
     //dw abt this
     private JButton createZeroButton() {
         JButton jbutton = new JButton();
@@ -166,4 +166,6 @@ public class ShipmentsPanel extends JPanel {
         jbutton.setMaximumSize(new Dimension(0, 0));
         return jbutton;
     }
+
+
 }

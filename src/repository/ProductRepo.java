@@ -20,8 +20,10 @@ public class ProductRepo <T extends Comparable<T>>{
     }
 
     public void updateProductQuantity(Product product, int newQuantity) {
-        if (newQuantity >= 0 && newQuantity <= 1000)
+        if (newQuantity >= 0 && newQuantity <= 1000){
             product.setQuantity(newQuantity);
+        }
+
     }
 
     public void deleteProduct(int id){

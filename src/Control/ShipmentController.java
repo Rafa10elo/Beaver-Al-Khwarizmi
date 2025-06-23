@@ -1,8 +1,11 @@
 package Control;
+import Model.Product;
 import Model.Shipment;
 import View.*;
+import repository.ProductRepo;
 import repository.ShipmentRepo;
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.time.LocalDate;
@@ -12,11 +15,13 @@ import java.util.ArrayList;
 public class ShipmentController {
     ShipmentsPanel shipmentsPanel;
     ArrayList<ShipmentPanel> shipmentPanels;
+    ProductRepo<Product> products;
     ShipmentRepo shipments;
 
-    public ShipmentController(ShipmentsPanel shipmentsPanel,ArrayList<ShipmentPanel> shipmentPanels,ShipmentRepo shipments) {
+    public ShipmentController(ShipmentsPanel shipmentsPanel, ArrayList<ShipmentPanel> shipmentPanels, ProductRepo<Product> products, ShipmentRepo shipments) {
         this.shipmentsPanel = shipmentsPanel;
         this.shipmentPanels = shipmentPanels;
+        this.products = products;
         this.shipments = shipments;
 
         shipmentsPanel.addProductButton.addActionListener(addListener);
@@ -26,6 +31,8 @@ public class ShipmentController {
     }
 
     public void loadShipments() {
+        System.out.println("size11"+shipmentPanels.size());
+
         shipments.expiredShipments();
         shipmentsPanel.clearShipments();
         ArrayList<Shipment> shipmentArrayList=shipments.getList();
@@ -36,6 +43,12 @@ public class ShipmentController {
             shipmentPanel.deleteButton.addActionListener(deleteListener);
             shipmentPanel.editButton.addActionListener(editListener);
         }
+        System.out.println("size"+shipmentPanels.size());
+    }
+
+
+    public void addProductsToAddShipmentDialog(){
+
     }
 
     ActionListener deleteListener = new ActionListener() {
@@ -60,27 +73,72 @@ public class ShipmentController {
             CustomDialog dialog = shipmentPanel.createEditShipmentDialog();
             shipment.setDestination(dialog.name.getText()) ;
             shipment.setPrice(Double.parseDouble(dialog.price.getText())) ;
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MMM-yyyy");
-            shipment.setDeliveryDate(LocalDate.parse(dialog.amount.getText(),formatter));
+            if(shipment.isPriority()){
+                shipments.demoteFromVip(shipment);
+                loadShipments();//this is a hopeless trial to make it work
+            }
+            else
+            {
+                if(dialog.checkBox.isSelected()){
+                    shipments.promoteToVip(shipment,Integer.parseInt(dialog.numberOfDays.getText()));
+                    System.out.println("i wanna dia "+Integer.parseInt(dialog.numberOfDays.getText()));
+                    loadShipments();
+                }
+            }
             shipmentPanel.repaint();
             loadShipments();
             System.out.println("edit");
         }
     };
 
+    public void soso(Double total , double james ,int quantity){
+        total+= james*quantity;
+
+
+        System.out.println("gorj  " +total);
+
+    }
     ActionListener addListener = new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
 
-            CustomDialog dialog = shipmentsPanel.createAddShipment();
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-            Shipment shipment = new Shipment(ShipmentsPanel.cnt++,dialog.name.getText(),Double.parseDouble(dialog.price.getText()));
+            //idk why i'm alive atp
+            AddShipmentDialog dialog = shipmentsPanel.createAddShipment();
 
-            shipmentsPanel.addShipmentPanel(shipment);
-            shipments.insert(shipment);
+            for(Product p: products.getList()){
+                dialog.addProductPanel(p);
+                dialog.productsPanel.add(Box.createRigidArea(new Dimension(0,10)));
+            }
+
+            Double []totalCost=new Double[]{0.0};
+            Shipment []shipment = new Shipment[1];
+
+
+            dialog.confirmButton.addActionListener(e1->{
+                dialog.dispose();
+                for(AddShipmentDialog.MiniProductPanel miniProductPanel: dialog.miniProductPanels){
+                    products.updateProductQuantity(miniProductPanel.product,miniProductPanel.product.getQuantity()-(int)miniProductPanel.quantitySpinner.getValue());
+//                    System.out.println("AAAAAAAAAAAAAAAAAAA "+(int)miniProductPanel.quantitySpinner.getValue());
+                }
+                for(AddShipmentDialog.MiniProductPanel miniProductPanel: dialog.miniProductPanels){
+//                    System.out.println("2323  "+   (int)miniProductPanel.quantitySpinner.getValue()+ " " + miniProductPanel.product.getPrice());
+                totalCost[0] += miniProductPanel.product.getPrice()*(int)miniProductPanel.quantitySpinner.getValue();
+                    System.out.println(totalCost[0]);
+                }
+                shipment[0] = new Shipment(dialog.destField.getText(),totalCost[0]);
+
+                System.out.println("disposing dialog");
+            });
+
+
+
+            dialog.setVisible(true);
+            shipmentsPanel.addShipmentPanel(shipment[0]);
+            shipments.insert(shipment[0]);
             loadShipments();
         }
     };
+
 
     ActionListener searchButtonListener = new ActionListener() {
         @Override

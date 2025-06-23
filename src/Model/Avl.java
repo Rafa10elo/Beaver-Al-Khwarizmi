@@ -24,7 +24,7 @@ public class Avl <T extends Comparable<T>> {
    }
 
    public void print(){
-       System.out.println(root.right.key);
+       System.out.println(root.key);
    }
 
    public Avl (){

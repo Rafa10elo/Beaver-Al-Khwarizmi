@@ -36,6 +36,7 @@ public class Shipment implements Comparable<Shipment>{
 
     //this one is for the normal shipments where the deliveryDate is generated automatically
     public Shipment(String destination, double price) {
+        System.out.println(price+ "const");
         this.shipmentId = cnt++;
         this.deliveryDate = date;
         this.destination = destination;

@@ -53,7 +53,7 @@ public class ProductsPanel extends JPanel {
         searchButton.setFocusPainted(false);
 //        searchButton.setBorder(new FlatBorder());
         searchButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        searchButton.setBorder( new EmptyBorder(7,4,7,6));
+        searchButton.setBorder( new EmptyBorder(10,6,10,8));
 
 
         navigationBar.add(searchButton);
@@ -152,7 +152,7 @@ public class ProductsPanel extends JPanel {
 
     private JButton createTextButton(String text) {
         JButton button = new JButton(text);
-        button.setFont(MainFrame.FONT_BOLD.deriveFont(23f));
+        button.setFont(MainFrame.FONT_BOLD.deriveFont(20f));
         button.setFocusPainted(false);
         button.setBackground(MainFrame.dark_blue);
         button.setForeground(MainFrame.white);

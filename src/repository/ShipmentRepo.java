@@ -25,7 +25,10 @@ public class ShipmentRepo {
         else
             shipments.insert(shipment);
         shipmentAvl.insertHelper(shipment);
+        shipmentAvl.print();
     }
+
+
 
     //delete from everywhere 😡😡
     public void delete(int id){
@@ -36,11 +39,12 @@ public class ShipmentRepo {
     //this is specific to made you a noble (non vip shipment to a vip shipment)
     public boolean promoteToVip(Shipment shipment,int days){
         Shipment shipment1;
-        if (shipment.isPriority()){
+        if (!shipment.isPriority()){
             shipment1=new Shipment(days, shipment.getDestination(), shipment.getPrice());
             shipment1.setShipmentId(shipment.getShipmentId());
             delete(shipment.getShipmentId());
             insert(shipment1);
+            System.out.println("pleeaaaseeee");
         }
             return false;
     }
