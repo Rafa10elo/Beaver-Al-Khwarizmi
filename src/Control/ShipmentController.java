@@ -74,7 +74,14 @@ public class ShipmentController {
             shipment.setDestination(dialog.name.getText()) ;
             shipment.setPrice(Double.parseDouble(dialog.price.getText())) ;
             if(shipment.isPriority()){
-                shipments.demoteFromVip(shipment);
+                if(dialog.checkBox.isSelected()){
+                    shipments.demoteFromVip(shipment);
+                }
+                else{
+                    if(dialog.amount.getText()!=null){
+                        shipments.rescheduleShipment(shipment,Integer.parseInt(dialog.amount.getText()));
+                    }
+                }
                 loadShipments();//this is a hopeless trial to make it work
             }
             else
@@ -120,15 +127,26 @@ public class ShipmentController {
                     products.updateProductQuantity(miniProductPanel.product,miniProductPanel.product.getQuantity()-(int)miniProductPanel.quantitySpinner.getValue());
 //                    System.out.println("AAAAAAAAAAAAAAAAAAA "+(int)miniProductPanel.quantitySpinner.getValue());
                 }
+
+
+
                 for(AddShipmentDialog.MiniProductPanel miniProductPanel: dialog.miniProductPanels){
 //                    System.out.println("2323  "+   (int)miniProductPanel.quantitySpinner.getValue()+ " " + miniProductPanel.product.getPrice());
                 totalCost[0] += miniProductPanel.product.getPrice()*(int)miniProductPanel.quantitySpinner.getValue();
                     System.out.println(totalCost[0]);
                 }
-                shipment[0] = new Shipment(dialog.destField.getText(),totalCost[0]);
+                if(dialog.checkBox.isSelected()){
+                    shipment[0] = new Shipment(Integer.parseInt(dialog.daysField.getText()),dialog.destField.getText(),totalCost[0]);
+                }
+                else
+                    shipment[0] = new Shipment(dialog.destField.getText(),totalCost[0]);
+
 
                 System.out.println("disposing dialog");
             });
+
+
+
 
 
 

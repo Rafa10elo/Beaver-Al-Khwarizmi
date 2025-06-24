@@ -75,7 +75,11 @@ public class Controller {
         mainFrame = new MainFrame(shipmentsPanel, productsPanel,reportPanel);
         mainPanel.productsButton.addActionListener(e -> MainFrame.showPanel("PRODUCTS"));
         mainPanel.shipmentsButton.addActionListener(e -> MainFrame.showPanel("SHIPMENTS"));
-        mainPanel.reportButton.addActionListener(e -> {reportController.addData();
+        mainPanel.reportButton.addActionListener(e -> {
+//            reportController = new ReportController(reportPanel,productProductRepo,shipmentRepo);
+            reportController.addData();
+            reportPanel.revalidate();
+            reportPanel.repaint();
             MainFrame.showPanel("REPORT");});
         mainFrame.setVisible(true);
     }

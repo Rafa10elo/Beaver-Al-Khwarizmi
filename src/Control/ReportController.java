@@ -35,6 +35,7 @@ public class ReportController {
         String allCosts = String.valueOf(shipments.allCosts());
         String InventoryValue = String.valueOf(products.InventoryValue());
         int totalProd = products.getList().size();
+        System.out.println("dadada"+products.getList().size());
         int totalShip = shipments.getList().size();
         String totalProducts = String.valueOf(totalProd);
         String totalShipments = String.valueOf(totalShip);

@@ -11,7 +11,9 @@ import java.time.format.DateTimeFormatter;
 
 public class ReportPanel extends JPanel {
     public JButton backButton;
+
     public JPanel highValProductsPanel;
+
 
 
     public ReportPanel() {
@@ -76,6 +78,7 @@ public class ReportPanel extends JPanel {
 
 
     JPanel createReportDetailsPanel(String allCosts,String InventoryValue, String totalShipments, String totalProducts){
+        System.out.println("i will really off myself "+ totalProducts);
         JPanel reportDetailsPanel = new JPanel();
         reportDetailsPanel.setPreferredSize(new Dimension(400,getHeight()));
         reportDetailsPanel.setBackground(MainFrame.white);
@@ -135,11 +138,14 @@ public class ReportPanel extends JPanel {
         return label;
     }
 
+
     public void addShipmentToHighValPanel (Shipment shipment){
         JPanel shipmentPanel = createReportShipmentPanel(shipment);
         highValProductsPanel.add(shipmentPanel);
         highValProductsPanel.add(Box.createRigidArea(new Dimension(0,15)));
     }
+
+
 
     JPanel createReportShipmentPanel(Shipment shipment){
         JPanel panel= new JPanel();
@@ -164,10 +170,12 @@ public class ReportPanel extends JPanel {
     }
 
     public void addReportDetailsToPanel(String allCosts,String InventoryValue, String totalShipments, String totalProducts){
-
         System.out.println("total shi " + totalProducts);
         JPanel panel = createReportDetailsPanel(allCosts,InventoryValue,totalShipments,totalProducts);
+        System.out.println("i will off myself here "+totalProducts);
         this.add(panel,BorderLayout.WEST);
+
+
 
     }
 
