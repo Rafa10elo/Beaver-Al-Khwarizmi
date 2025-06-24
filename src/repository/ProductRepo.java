@@ -4,7 +4,7 @@ import Model.Avl;
 import Model.Product;
 
 import java.util.ArrayList;
-import java.util.List;
+
 
 public class ProductRepo <T extends Comparable<T>>{
 
@@ -31,6 +31,8 @@ public class ProductRepo <T extends Comparable<T>>{
     }
 
     public void insertProduct(Product product){
+        if(product.getQuantity()<0||product.getQuantity()>1000||product.getPrice()<0)
+            return;
         products.insertHelper(product);
     }
 
@@ -54,6 +56,5 @@ public class ProductRepo <T extends Comparable<T>>{
         }
         return value;
     }
-
 
 }
