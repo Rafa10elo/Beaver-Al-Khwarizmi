@@ -13,6 +13,7 @@ public class ReportPanel extends JPanel {
     public JButton backButton;
 
     public JPanel highValProductsPanel;
+    public JPanel reportDetailsPanel;
 
 
 
@@ -169,11 +170,31 @@ public class ReportPanel extends JPanel {
         return panel;
     }
 
+
+    public void clearHighValShipments() {
+        highValProductsPanel.removeAll();
+        highValProductsPanel.revalidate();
+        highValProductsPanel.repaint();
+    }
+    public void clearReportDetailsPanel() {
+        reportDetailsPanel.removeAll();
+        reportDetailsPanel.revalidate();
+        reportDetailsPanel.repaint();
+    }
+
+
     public void addReportDetailsToPanel(String allCosts,String InventoryValue, String totalShipments, String totalProducts){
+
+//        if(reportDetailsPanel!=null)
+//        clearReportDetailsPanel();
+        if (reportDetailsPanel != null) {
+            this.remove(reportDetailsPanel);
+        }
+
         System.out.println("total shi " + totalProducts);
-        JPanel panel = createReportDetailsPanel(allCosts,InventoryValue,totalShipments,totalProducts);
+        reportDetailsPanel = createReportDetailsPanel(allCosts,InventoryValue,totalShipments,totalProducts);
         System.out.println("i will off myself here "+totalProducts);
-        this.add(panel,BorderLayout.WEST);
+        this.add(reportDetailsPanel,BorderLayout.WEST);
 
 
 

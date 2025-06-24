@@ -17,7 +17,7 @@ public class ReportController {
         this.products = products;
         this.shipments = shipments;
         this.reportPanel = reportPanel;
-        loadHighValShipments();
+
         addData();
         reportPanel.revalidate();
         reportPanel.repaint();
@@ -31,6 +31,10 @@ public class ReportController {
     }
 
     void addData(){
+        reportPanel.clearHighValShipments();
+//        reportPanel.clearReportDetailsPanel();
+        loadHighValShipments();
+
         System.out.println("jimmy ain't working");
         String allCosts = String.valueOf(shipments.allCosts());
         String InventoryValue = String.valueOf(products.InventoryValue());
