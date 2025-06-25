@@ -25,7 +25,6 @@ public class ShipmentRepo {
         else
             shipments.insert(shipment);
         shipmentAvl.insertHelper(shipment);
-        shipmentAvl.print();
     }
 
 
@@ -49,19 +48,14 @@ public class ShipmentRepo {
             return false;
     }
 
-    public boolean demoteFromVip(Shipment shipment){
+    public void demoteFromVip(Shipment shipment){
         Shipment shipment1;
-        if(shipment.isPriority()){
             //the minus 15 ,cus the vip shipment has an increased price
             // (it's now a normal shipment so there is no need to the raise)
             shipment1=new Shipment(shipment.getDestination(),shipment.getPrice()-15);
-            delete(shipment.getShipmentId());
             shipment1.setShipmentId(shipment.getShipmentId());
             insert(shipment1);
-            return true;
-        }
-            return false;
-
+            delete(shipment.getShipmentId());
     }
 
     // I wanted to name it updateTheDate,but i have to be professional
@@ -117,6 +111,10 @@ public class ShipmentRepo {
 
     public void expiredShipments(){
         shipments.removeExpiredShipments();
+    }
+
+    public void print (){
+        shipments.printHeap();
     }
 
 
