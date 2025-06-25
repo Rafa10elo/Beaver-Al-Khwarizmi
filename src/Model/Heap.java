@@ -89,20 +89,19 @@ public class Heap {
     // (add it to the arraylist and edit all the other dates after it by adding one day to there date)
     public void insertVIP(Shipment vipShipment) {
 
-        System.out.println(vipShipment.getPrice());
         LocalDate vipDate = vipShipment.getDeliveryDate();
 
         //this while to solve the problem if the user entered a taken date by a vip
         //so we search to the nearest available date
         while (true) {
-            boolean takenDate = false;
+            boolean takenDate = isDateTakenByVIP(vipDate);
 
-            for (Shipment s : heap) {
-                if (s.isPriority() && s.getDeliveryDate().equals(vipDate)) {
-                    takenDate = true;
-                    break;
-                }
-            }
+//            for (Shipment s : heap) {
+//                if (s.isPriority() && s.getDeliveryDate().equals(vipDate)) {
+//                    takenDate = true;
+//                    break;
+//                }
+//            }
 
             if (!takenDate) break;
             vipDate = vipDate.plusDays(1);
@@ -134,11 +133,10 @@ public class Heap {
         }
     }
 
-    public void insert(Shipment value) {
-        System.out.println(value.getPrice());
-        LocalDate adjustedDate = getNextAvailableDate(value.getDeliveryDate());
-        value.setDeliveryDate(adjustedDate);
-        heap.add(value);
+    public void insert(Shipment shipment) {
+        LocalDate adjustedDate = getNextAvailableDate(shipment.getDeliveryDate());
+        shipment.setDeliveryDate(adjustedDate);
+        heap.add(shipment);
         heapifyUp(heap.size() - 1);
     }
 

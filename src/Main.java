@@ -47,6 +47,25 @@ public class Main {
 //        shipmentHeap.printHeap();
 
     Controller controller = new Controller();
+//        Avl<Shipment>shipmentAvl = new Avl<>(Shipment::getShipmentId);
+//        Heap shimp = new Heap();
+//        ShipmentRepo shipmentRepo = new ShipmentRepo(shimp,shipmentAvl);
+//        Shipment shipment=new Shipment( "Paris", 100.5);
+//        Shipment shipment1=new Shipment( "Berlin", 150.0);
+//        Shipment shipment2=new Shipment(3, "Paris", 100.5);
+//        Shipment shipment3=new Shipment(4, "Berlin", 150.0);
+//        Shipment shipment4=new Shipment(5, "Paris", 100.5);
+//        shipmentRepo.insert(shipment);
+//        shipmentRepo.insert(shipment1);
+//        shipmentRepo.insert(shipment2);
+//        shipmentRepo.insert(shipment3);
+//        shipmentRepo.insert(shipment4);
+//        shipmentRepo.insert(new Shipment(6, "Berlin", 150.0));
+//        shipmentRepo.print();
+//        System.out.println("-------------");
+//        shipmentRepo.demoteFromVip(shipment2);
+//        shipmentRepo.print();
+
 
     }
 }
