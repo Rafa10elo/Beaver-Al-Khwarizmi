@@ -49,13 +49,15 @@ public class ShipmentRepo {
     }
 
     public void demoteFromVip(Shipment shipment){
+        System.out.println("inn");
         Shipment shipment1;
             //the minus 15 ,cus the vip shipment has an increased price
             // (it's now a normal shipment so there is no need to the raise)
             shipment1=new Shipment(shipment.getDestination(),shipment.getPrice()-15);
             shipment1.setShipmentId(shipment.getShipmentId());
-            insert(shipment1);
             delete(shipment.getShipmentId());
+            insert(shipment1);
+
     }
 
     // I wanted to name it updateTheDate,but i have to be professional
