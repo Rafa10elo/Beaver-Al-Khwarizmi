@@ -1,14 +1,10 @@
 package View;
 
-
-
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
-import javax.swing.border.MatteBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.ItemEvent;
 
 public class CustomDialog extends JDialog{
     public JTextField amount;
@@ -37,11 +33,9 @@ public class CustomDialog extends JDialog{
        this.price = price;
        this.confirmButton=confirmButton;
 
-
        name = makeEmLookNicer(name);
        amount = makeEmLookNicer(amount);
        price = makeEmLookNicer(price);
-
 
        setBackground(MainFrame.white);
        setLayout(new BorderLayout());
@@ -189,11 +183,9 @@ public class CustomDialog extends JDialog{
         this.price = price;
         this.confirmButton=confirmButton;
 
-
         name = makeEmLookNicer(name);
         amount = makeEmLookNicer(amount);
         price = makeEmLookNicer(price);
-
 
         setBackground(MainFrame.white);
         setLayout(new BorderLayout());
@@ -237,12 +229,8 @@ public class CustomDialog extends JDialog{
         checkBox = new JCheckBox();
         checkBox.setBackground(MainFrame.white);
         setPriorityPanel.add(checkBox);
-//        setPriorityPanel.add(Box.createRigidArea(new Dimension(60,0)));
         centerPanel.add(setPriorityPanel);
-
-
         centerPanel.add(Box.createRigidArea(new Dimension(0,40)));
-
         this.add(centerPanel,BorderLayout.CENTER);
 
         JPanel lastPanelISwear= new JPanel(new FlowLayout(FlowLayout.CENTER));
@@ -258,8 +246,6 @@ public class CustomDialog extends JDialog{
 
     }
 
-
-
    JLabel createLabel (String s){
        JLabel label = new JLabel(s);
        label.setForeground(MainFrame.blue);
@@ -270,16 +256,13 @@ public class CustomDialog extends JDialog{
        return label;
    }
 
-
    JTextField makeEmLookNicer(JTextField textField){
        JTextField textField1 = textField;
        textField1.setFont(MainFrame.FONT_REGULAR.deriveFont(15f));
        textField1.setBackground(MainFrame.dark_white);
        textField1.setForeground(MainFrame.black);
-//       textField1.setBorder(new FlatBorder());
        return textField1;
    }
-
 
     private JPanel makeRow(JComponent comp) {
         JPanel row = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 0));
@@ -297,8 +280,4 @@ public class CustomDialog extends JDialog{
 
         }
     };
-
-
-
-
 }

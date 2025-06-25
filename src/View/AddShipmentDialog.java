@@ -35,11 +35,8 @@ public class AddShipmentDialog extends JDialog {
         JPanel shipmentDetailPanel = createAddShipmentDetailsPanel();
         this.add(shipmentDetailPanel,BorderLayout.WEST);
 
-
         JPanel BorderPanel = new JPanel(new BorderLayout());
         BorderPanel.setBorder(new MatteBorder(0,3,0,0,MainFrame.dark_white));
-
-
 
         productsPanel = new JPanel() ;
         productsPanel.setLayout(new BoxLayout(productsPanel,BoxLayout.Y_AXIS));
@@ -58,11 +55,8 @@ public class AddShipmentDialog extends JDialog {
             }
         });
 
-
         BorderPanel.add(scrollProductMenu,BorderLayout.CENTER);
         this.add(BorderPanel,BorderLayout.CENTER);
-
-
 
         JPanel footerBar = new JPanel();
         footerBar.setBorder(new EmptyBorder(15, 15, 15, 15));
@@ -71,22 +65,9 @@ public class AddShipmentDialog extends JDialog {
         footerBar.add(confirmButton);
         add(footerBar,BorderLayout.SOUTH);
 
-
-
-
-
-
         this.pack();
         this.setLocationRelativeTo(null);
 
-    }
-
-
-    private JPanel makeRow(JComponent comp) {
-        JPanel row = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 0));
-        row.setBackground(MainFrame.white);
-        row.add(comp);
-        return row;
     }
 
     JPanel createAddShipmentDetailsPanel(){
@@ -173,8 +154,6 @@ public class AddShipmentDialog extends JDialog {
         textField1.setFont(MainFrame.FONT_REGULAR.deriveFont(20f));
         textField1.setBackground(MainFrame.dark_white);
         textField1.setForeground(MainFrame.black);
-
-//       textField1.setBorder(new FlatBorder());
         return textField1;
     }
 
@@ -195,7 +174,6 @@ public class AddShipmentDialog extends JDialog {
         button.setBackground(MainFrame.dark_blue);
         button.setForeground(MainFrame.white);
         button.setCursor(new Cursor(Cursor.HAND_CURSOR));
-//        button.setBorder(new FlatBorder());
         return button;
     }
 
@@ -217,7 +195,7 @@ public class AddShipmentDialog extends JDialog {
 
     public class MiniProductPanel extends JPanel{
         public Product product;
-//        JCheckBox selectedBox;
+
         public JSpinner quantitySpinner;
 
         public MiniProductPanel(Product product) {
@@ -229,15 +207,10 @@ public class AddShipmentDialog extends JDialog {
 
             add(Box.createRigidArea(new Dimension(60, 0)));
             add(createField("ID:          ", String.valueOf(product.getProductID()), MainFrame.FONT_BOLD.deriveFont(18F), MainFrame.FONT_BOLD.deriveFont(18F), MainFrame.black, MainFrame.black));
-//            add(Box.createRigidArea(new Dimension(40, 0)));
             add(createField("Name:          ", product.getProductName(), MainFrame.FONT_BOLD.deriveFont(18F), MainFrame.FONT_LIGHT.deriveFont(18F), MainFrame.black, MainFrame.blue));
-//            add(Box.createRigidArea(new Dimension(40, 0)));
             add(createField("Price:          ", String.valueOf(product.getPrice()), MainFrame.FONT_BOLD.deriveFont(18F), MainFrame.FONT_LIGHT.deriveFont(18F), MainFrame.black, MainFrame.blue));
-//            add(Box.createRigidArea(new Dimension(40, 0)));
             add(createField("Quantity:          ", String.valueOf(product.getQuantity()), MainFrame.FONT_BOLD.deriveFont(18F), MainFrame.FONT_LIGHT.deriveFont(18F), MainFrame.black, MainFrame.blue));
             add(Box.createRigidArea(new Dimension(40, 0)));
-
-
 
             JPanel panel = new JPanel();
             panel.setOpaque(false); // inherit background
@@ -254,9 +227,6 @@ public class AddShipmentDialog extends JDialog {
             textField.setBorder(BorderFactory.createLineBorder(MainFrame.white));
             textField.setEditable(false);
             quantitySpinner.setBorder(BorderFactory.createLineBorder(MainFrame.dark_white));
-
-
-
 
             panel.add(Box.createRigidArea(new Dimension(0, 30)));
             panel.add(label);

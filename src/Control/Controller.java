@@ -7,8 +7,6 @@ import Model.Shipment;
 import View.*;
 import repository.ProductRepo;
 import repository.ShipmentRepo;
-
-import java.time.LocalDate;
 import java.util.*;
 
 public class Controller {
@@ -47,7 +45,7 @@ public class Controller {
 
 
         productList = new Avl<Product>(Product::getProductID);
-        productList.insertHelper(new Product("Chair", 45.0, 10));
+        productList.insertHelper(new Product("Mohammad PCs", 4.0, 2));
         productList.insertHelper(new Product("Table", 90.0, 5));
         productList.insertHelper(new Product("Chair", 45.0, 10));
         productList.insertHelper(new Product("Table", 90.0, 5));
@@ -76,16 +74,12 @@ public class Controller {
         mainPanel.productsButton.addActionListener(e -> MainFrame.showPanel("PRODUCTS"));
         mainPanel.shipmentsButton.addActionListener(e -> MainFrame.showPanel("SHIPMENTS"));
         mainPanel.reportButton.addActionListener(e -> {
-//            reportController = new ReportController(reportPanel,productProductRepo,shipmentRepo);
+
             reportController.addData();
             reportPanel.revalidate();
             reportPanel.repaint();
             MainFrame.showPanel("REPORT");});
         mainFrame.setVisible(true);
-    }
-
-    public void showPanel(String name) {
-        mainFrame.showPanel(name);
     }
 
 }

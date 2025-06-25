@@ -1,9 +1,7 @@
 package View;
 
 import Model.Product;
-
 import javax.swing.*;
-import javax.swing.border.EmptyBorder;
 import java.awt.*;
 
 public class ProductPanel extends JPanel{
@@ -11,28 +9,25 @@ public class ProductPanel extends JPanel{
     public CustomDialog editProductDialog  ;
     public  JButton editButton;
     public  JButton deleteButton;
-//    public JButton confirmButton;
 
 
     public ProductPanel(Product product) {
 
         this.product = product;
         setBorder(BorderFactory.createMatteBorder(1, 10, 1, 1, MainFrame.red));
-//        setSize(new Dimension(300,100));
         setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
-//        setLayout(new GridBagLayout());
         setBackground(MainFrame.white);
 
 
         add(Box.createRigidArea(new Dimension(150, 0)));
-        add(createField("ID:", String.valueOf(product.getProductID()), MainFrame.FONT_BOLD.deriveFont(22F), MainFrame.FONT_BOLD.deriveFont(22F), MainFrame.black, MainFrame.black));
-        add(Box.createRigidArea(new Dimension(100, 0)));
-        add(createField("Name:", product.getProductName(), MainFrame.FONT_BOLD.deriveFont(22F), MainFrame.FONT_LIGHT.deriveFont(22F), MainFrame.black, MainFrame.blue));
-        add(Box.createRigidArea(new Dimension(100, 0)));
-        add(createField("Price:", String.valueOf(product.getPrice()), MainFrame.FONT_BOLD.deriveFont(22F), MainFrame.FONT_LIGHT.deriveFont(22F), MainFrame.black, MainFrame.blue));
-        add(Box.createRigidArea(new Dimension(100, 0)));
-        add(createField("Quantity:", String.valueOf(product.getQuantity()), MainFrame.FONT_BOLD.deriveFont(22F), MainFrame.FONT_LIGHT.deriveFont(22F), MainFrame.black, MainFrame.blue));
-        add(Box.createRigidArea(new Dimension(300, 0)));
+        add(createField("ID:                       ", String.valueOf(product.getProductID()), MainFrame.FONT_BOLD.deriveFont(22F), MainFrame.FONT_BOLD.deriveFont(22F), MainFrame.black, MainFrame.black));
+//        add(Box.createRigidArea(new Dimension(100, 0)));
+        add(createField("Name:                       ", product.getProductName(), MainFrame.FONT_BOLD.deriveFont(22F), MainFrame.FONT_LIGHT.deriveFont(22F), MainFrame.black, MainFrame.blue));
+//        add(Box.createRigidArea(new Dimension(100, 0)));
+        add(createField("Price:                       ", String.valueOf(product.getPrice()), MainFrame.FONT_BOLD.deriveFont(22F), MainFrame.FONT_LIGHT.deriveFont(22F), MainFrame.black, MainFrame.blue));
+//        add(Box.createRigidArea(new Dimension(100, 0)));
+        add(createField("Quantity:                       ", String.valueOf(product.getQuantity()), MainFrame.FONT_BOLD.deriveFont(22F), MainFrame.FONT_LIGHT.deriveFont(22F), MainFrame.black, MainFrame.blue));
+        add(Box.createRigidArea(new Dimension(160, 0)));
 
 
         ImageIcon editIcon=new ImageIcon(getClass().getResource("Assets/edit.png"));

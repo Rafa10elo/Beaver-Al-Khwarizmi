@@ -17,14 +17,12 @@ public class ProductController {
     ProductRepo<Product> products;
     CustomDialog editDialog;
 
-
     public ProductController(ProductsPanel productsPanel, ProductRepo<Product> products,ArrayList<ProductPanel> productPanels) {
         this.productsPanel = productsPanel;
         this.products = products;
         this.productPanels = productPanels;
         productsPanel.addProductButton.addActionListener(addListener);
         productsPanel.searchButton.addActionListener(searchButtonListener);
-
         loadProducts();
     }
 
@@ -95,7 +93,6 @@ public class ProductController {
             String input = productsPanel.search.getText().trim();
             //to get back all panels search "." (ill make it more user-friendly later)
             if(input.equals(".")){
-                System.out.println("im in dot");
                 productsPanel.clearProducts();
                 loadProducts();
                 return;
@@ -105,7 +102,6 @@ public class ProductController {
                 return;
 
             }
-
             int id = Integer.parseInt(input);
 
             Product product=products.searchProduct(id);
@@ -119,8 +115,6 @@ public class ProductController {
                 notFoundLabel.setFont(MainFrame.FONT_REGULAR);
                 notFoundLabel.setForeground(MainFrame.dark_blue);
                 productsPanel.addToProductsPanel(notFoundLabel);
-
-
             }
         }
     };

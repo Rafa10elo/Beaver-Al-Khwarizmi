@@ -1,12 +1,5 @@
 package View;
 
-import Control.Controller;
-import View.MainPanel;
-import View.ProductsPanel;
-import View.ShipmentsPanel;
-
-
-
 import javax.swing.*;
 import java.awt.*;
 import java.io.File;
@@ -27,19 +20,15 @@ public class MainFrame extends JFrame {
     public static Font FONT_BOLD;
     public static Font FONT_LIGHT;
 
-
     static {
         try {
-            // Load the base font
             Font baseFont = Font.createFont(Font.TRUETYPE_FONT,
                     new File("src/View/fonts/Aleo-VariableFont_wght.ttf"));
 
-            // Create different variations
             FONT_REGULAR = baseFont.deriveFont(Font.PLAIN, 35f);
             FONT_BOLD = baseFont.deriveFont(Font.BOLD, 35f);
             FONT_LIGHT = baseFont.deriveFont(300f).deriveFont(35f); // Light weight (300)
 
-            // Register the font with the graphics environment
             GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
             ge.registerFont(baseFont);
 
@@ -60,8 +49,6 @@ public class MainFrame extends JFrame {
 
         mainPanel = new MainPanel();
 
-
-        // Add to card layout
         cardPanel.add(mainPanel, "MAIN");
         cardPanel.add(shipmentsPanel, "SHIPMENTS");
         cardPanel.add(productsPanel, "PRODUCTS");
@@ -74,10 +61,7 @@ public class MainFrame extends JFrame {
         setLocationRelativeTo(null);
 
         setTitle("Beaver Inc.");
-
-
     }
-
     public static void showPanel(String name) {
         cardLayout.show(cardPanel, name);
     }

@@ -32,7 +32,6 @@ public class ReportController {
 
     void addData(){
         reportPanel.clearHighValShipments();
-//        reportPanel.clearReportDetailsPanel();
         loadHighValShipments();
 
         System.out.println("jimmy ain't working");

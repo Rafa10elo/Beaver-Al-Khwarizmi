@@ -53,7 +53,6 @@ public class ShipmentsPanel extends JPanel {
         searchButton.setForeground(MainFrame.dark_blue);
         searchButton.setFont(MainFrame.FONT_REGULAR.deriveFont(16f));
         searchButton.setFocusPainted(false);
-//        searchButton.setBorder(new FlatBorder());
         searchButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
         searchButton.setBorder( new EmptyBorder(10,6,10,8));
 
@@ -134,10 +133,6 @@ public class ShipmentsPanel extends JPanel {
         return addProductDialog;
     }
 
-
-
-
-
     private JButton createTextButton(String text) {
         JButton button = new JButton(text);
         button.setFont(MainFrame.FONT_BOLD.deriveFont(20f));
@@ -154,9 +149,6 @@ public class ShipmentsPanel extends JPanel {
         contentPanel.add(label);
         contentPanel.add(Box.createRigidArea(new Dimension(0, 10)));
     }
-
-
-
 
     //dw abt this
     private JButton createZeroButton() {

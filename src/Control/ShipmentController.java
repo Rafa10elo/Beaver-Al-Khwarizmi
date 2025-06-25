@@ -46,11 +46,6 @@ public class ShipmentController {
         System.out.println("size"+shipmentPanels.size());
     }
 
-
-    public void addProductsToAddShipmentDialog(){
-
-    }
-
     ActionListener deleteListener = new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -98,13 +93,6 @@ public class ShipmentController {
         }
     };
 
-    public void soso(Double total , double james ,int quantity){
-        total+= james*quantity;
-
-
-        System.out.println("gorj  " +total);
-
-    }
     ActionListener addListener = new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -125,13 +113,12 @@ public class ShipmentController {
                 dialog.dispose();
                 for(AddShipmentDialog.MiniProductPanel miniProductPanel: dialog.miniProductPanels){
                     products.updateProductQuantity(miniProductPanel.product,miniProductPanel.product.getQuantity()-(int)miniProductPanel.quantitySpinner.getValue());
-//                    System.out.println("AAAAAAAAAAAAAAAAAAA "+(int)miniProductPanel.quantitySpinner.getValue());
+
                 }
 
 
-
                 for(AddShipmentDialog.MiniProductPanel miniProductPanel: dialog.miniProductPanels){
-//                    System.out.println("2323  "+   (int)miniProductPanel.quantitySpinner.getValue()+ " " + miniProductPanel.product.getPrice());
+
                 totalCost[0] += miniProductPanel.product.getPrice()*(int)miniProductPanel.quantitySpinner.getValue();
                     System.out.println(totalCost[0]);
                 }
@@ -144,11 +131,6 @@ public class ShipmentController {
 
                 System.out.println("disposing dialog");
             });
-
-
-
-
-
 
             dialog.setVisible(true);
             shipmentsPanel.addShipmentPanel(shipment[0]);
@@ -164,7 +146,6 @@ public class ShipmentController {
             String input = shipmentsPanel.search.getText().trim();
             //to get back all panels search "." (ill make it more user-friendly later)
             if(input.equals(".")){
-                System.out.println("im in dot");
                 shipmentsPanel.clearShipments();
                 loadShipments();
                 return;

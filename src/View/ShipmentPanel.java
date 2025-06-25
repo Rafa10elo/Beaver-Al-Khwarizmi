@@ -21,7 +21,6 @@ public class ShipmentPanel extends JPanel {
         setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
         setBackground(MainFrame.white);
 
-
         add(Box.createRigidArea(new Dimension(150, 0)));
         add(createField("ID:", String.valueOf(shipment.getShipmentId()), MainFrame.FONT_BOLD.deriveFont(22F), MainFrame.FONT_BOLD.deriveFont(22F), MainFrame.black, MainFrame.black));
         add(Box.createRigidArea(new Dimension(100, 0)));
@@ -33,7 +32,6 @@ public class ShipmentPanel extends JPanel {
         add(createField("Delivery Date:", shipment.getDeliveryDate().format(formatter), MainFrame.FONT_BOLD.deriveFont(22F), MainFrame.FONT_LIGHT.deriveFont(22F), MainFrame.black, MainFrame.blue));
         add(Box.createRigidArea(new Dimension(300, 0)));
 
-
         ImageIcon editIcon=new ImageIcon(getClass().getResource("Assets/edit.png"));
         Image scaledEditIcon = editIcon.getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);
         ImageIcon scaledIcon = new ImageIcon(scaledEditIcon);
@@ -41,7 +39,6 @@ public class ShipmentPanel extends JPanel {
         editButton.setBorderPainted(false);
         editButton.setContentAreaFilled(false);
         add(editButton);
-
 
         ImageIcon deleteIcon =new ImageIcon(getClass().getResource("Assets/delete.png"));
         Image scaledDeleteIcon = deleteIcon.getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);

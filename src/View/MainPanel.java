@@ -14,7 +14,6 @@ public class MainPanel extends JPanel {
     public MainPanel() {
         setLayout(new BorderLayout());
 
-
         //title panel
         JPanel titlePanel = new JPanel(new GridBagLayout());
         titlePanel.setBorder(BorderFactory.createMatteBorder(0, 0, 10, 0, MainFrame.red));
@@ -27,7 +26,6 @@ public class MainPanel extends JPanel {
         titlePanel.setBackground(MainFrame.blue);
         titlePanel.add(titleLabel,gbc0);
         add(titlePanel,BorderLayout.NORTH);
-
 
         JPanel contentPanel = new JPanel(new GridBagLayout());
         contentPanel.setBackground(MainFrame.white);
@@ -55,7 +53,6 @@ public class MainPanel extends JPanel {
         shipmentsButton = createTextButton("Shipments");
         shipmentsButton.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-
         shipmentsPanel.add(Box.createRigidArea(new Dimension(0, 50)));
         shipmentsPanel.add(shipmentDesc);
         shipmentsPanel.add(Box.createRigidArea(new Dimension(0, 30)));
@@ -75,12 +72,10 @@ public class MainPanel extends JPanel {
         productsButton = createTextButton("Products");
         productsButton.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-
         productsPanel.add(Box.createRigidArea(new Dimension(0, 50)));
         productsPanel.add(productDesc);
         productsPanel.add(Box.createRigidArea(new Dimension(0, 30)));
         productsPanel.add(productsButton);
-
 
         // ------------ Report Panel -----------
         JPanel reportPanel = new JPanel();
@@ -95,7 +90,6 @@ public class MainPanel extends JPanel {
 
         reportButton = createTextButton("Report");
         reportButton.setAlignmentX(Component.CENTER_ALIGNMENT);
-
 
         reportPanel.add(Box.createRigidArea(new Dimension(0, 50)));
         reportPanel.add(reportDesc);
@@ -124,8 +118,6 @@ public class MainPanel extends JPanel {
 
         add(contentPanel, BorderLayout.CENTER);
     }
-
-
 
     static JLabel createLabel (String text,Font font, Color color){
         JLabel label = new JLabel(text);

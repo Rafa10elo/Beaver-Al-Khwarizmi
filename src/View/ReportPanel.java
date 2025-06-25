@@ -30,10 +30,6 @@ public class ReportPanel extends JPanel {
         navigationBar.add(Box.createRigidArea(new Dimension(100,0)));
         add(navigationBar,BorderLayout.NORTH);
 
-
-
-
-
         JPanel BorderPanel = new JPanel(new BorderLayout());
         BorderPanel.setBorder(new MatteBorder(0,3,0,0,MainFrame.dark_white));
 
@@ -46,8 +42,6 @@ public class ReportPanel extends JPanel {
 
 
         BorderPanel.add(highValPanel,BorderLayout.NORTH);
-
-
         highValProductsPanel = new JPanel() ;
         highValProductsPanel.setLayout(new BoxLayout(highValProductsPanel,BoxLayout.Y_AXIS));
         highValProductsPanel.setBackground(MainFrame.white);
@@ -69,8 +63,6 @@ public class ReportPanel extends JPanel {
         BorderPanel.add(scrollProductMenu,BorderLayout.CENTER);
         this.add(BorderPanel,BorderLayout.CENTER);
 
-
-
         JPanel footerBar = new JPanel();
         footerBar.setBorder(new EmptyBorder(25, 15, 15, 15));
         footerBar.setBackground(MainFrame.blue);
@@ -79,7 +71,6 @@ public class ReportPanel extends JPanel {
 
 
     JPanel createReportDetailsPanel(String allCosts,String InventoryValue, String totalShipments, String totalProducts){
-        System.out.println("i will really off myself "+ totalProducts);
         JPanel reportDetailsPanel = new JPanel();
         reportDetailsPanel.setPreferredSize(new Dimension(400,getHeight()));
         reportDetailsPanel.setBackground(MainFrame.white);
@@ -98,8 +89,6 @@ public class ReportPanel extends JPanel {
 
         return reportDetailsPanel;
     }
-
-
 
     JPanel createField(String labelText, String valueText, Font labelFont, Font valueFont, Color labelColor, Color valueColor) {
         JPanel panel = new JPanel();
@@ -124,10 +113,8 @@ public class ReportPanel extends JPanel {
         button.setBackground(MainFrame.dark_blue);
         button.setForeground(MainFrame.white);
         button.setCursor(new Cursor(Cursor.HAND_CURSOR));
-//        button.setBorder(new FlatBorder());
         return button;
     }
-
 
     JLabel createLabel (String s){
         JLabel label = new JLabel(s);
@@ -139,13 +126,11 @@ public class ReportPanel extends JPanel {
         return label;
     }
 
-
     public void addShipmentToHighValPanel (Shipment shipment){
         JPanel shipmentPanel = createReportShipmentPanel(shipment);
         highValProductsPanel.add(shipmentPanel);
         highValProductsPanel.add(Box.createRigidArea(new Dimension(0,15)));
     }
-
 
 
     JPanel createReportShipmentPanel(Shipment shipment){
@@ -154,7 +139,6 @@ public class ReportPanel extends JPanel {
         panel.setSize(new Dimension(300,100));
         panel.setLayout(new BoxLayout(panel, BoxLayout.X_AXIS));
         panel.setBackground(MainFrame.white);
-
 
         panel.add(Box.createRigidArea(new Dimension(150, 0)));
         panel.add(createField("ID:", String.valueOf(shipment.getShipmentId()), MainFrame.FONT_BOLD.deriveFont(20F), MainFrame.FONT_BOLD.deriveFont(20F), MainFrame.black, MainFrame.black));
@@ -176,28 +160,13 @@ public class ReportPanel extends JPanel {
         highValProductsPanel.revalidate();
         highValProductsPanel.repaint();
     }
-    public void clearReportDetailsPanel() {
-        reportDetailsPanel.removeAll();
-        reportDetailsPanel.revalidate();
-        reportDetailsPanel.repaint();
-    }
-
 
     public void addReportDetailsToPanel(String allCosts,String InventoryValue, String totalShipments, String totalProducts){
-
-//        if(reportDetailsPanel!=null)
-//        clearReportDetailsPanel();
         if (reportDetailsPanel != null) {
             this.remove(reportDetailsPanel);
         }
-
-        System.out.println("total shi " + totalProducts);
         reportDetailsPanel = createReportDetailsPanel(allCosts,InventoryValue,totalShipments,totalProducts);
-        System.out.println("i will off myself here "+totalProducts);
         this.add(reportDetailsPanel,BorderLayout.WEST);
-
-
-
     }
 
 

@@ -51,7 +51,6 @@ public class ProductsPanel extends JPanel {
         searchButton.setForeground(MainFrame.dark_blue);
         searchButton.setFont(MainFrame.FONT_REGULAR.deriveFont(16f));
         searchButton.setFocusPainted(false);
-//        searchButton.setBorder(new FlatBorder());
         searchButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
         searchButton.setBorder( new EmptyBorder(10,6,10,8));
 
@@ -86,13 +85,10 @@ public class ProductsPanel extends JPanel {
         addProductButton = createTextButton("add product");
         footerBar.add(addProductButton);
         add(footerBar,BorderLayout.SOUTH);
-
-
     }
 
 
     public void addProductPanel(Product product) {
-        System.out.println("made a wajha");
         ProductPanel p = new ProductPanel(product);
 
         contentPanel.add(p);
@@ -148,8 +144,6 @@ public class ProductsPanel extends JPanel {
         return addProductDialog;
     }
 
-
-
     private JButton createTextButton(String text) {
         JButton button = new JButton(text);
         button.setFont(MainFrame.FONT_BOLD.deriveFont(20f));
@@ -157,7 +151,6 @@ public class ProductsPanel extends JPanel {
         button.setBackground(MainFrame.dark_blue);
         button.setForeground(MainFrame.white);
         button.setCursor(new Cursor(Cursor.HAND_CURSOR));
-//        button.setBorder(new FlatBorder());
         return button;
     }
 }
