@@ -69,7 +69,6 @@ public class ReportPanel extends JPanel {
         add(footerBar,BorderLayout.SOUTH);
     }
 
-
     JPanel createReportDetailsPanel(String allCosts,String InventoryValue, String totalShipments, String totalProducts){
         JPanel reportDetailsPanel = new JPanel();
         reportDetailsPanel.setPreferredSize(new Dimension(400,getHeight()));

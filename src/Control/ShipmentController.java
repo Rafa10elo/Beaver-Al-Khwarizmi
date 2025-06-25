@@ -8,8 +8,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 public class ShipmentController {
@@ -27,12 +25,9 @@ public class ShipmentController {
         shipmentsPanel.addProductButton.addActionListener(addListener);
         shipmentsPanel.searchButton.addActionListener(searchButtonListener);
         loadShipments();
-
     }
 
     public void loadShipments() {
-        System.out.println("size11"+shipmentPanels.size());
-
         shipments.expiredShipments();
         shipmentsPanel.clearShipments();
         ArrayList<Shipment> shipmentArrayList=shipments.getList();
@@ -43,7 +38,6 @@ public class ShipmentController {
             shipmentPanel.deleteButton.addActionListener(deleteListener);
             shipmentPanel.editButton.addActionListener(editListener);
         }
-        System.out.println("size"+shipmentPanels.size());
     }
 
     ActionListener deleteListener = new ActionListener() {
@@ -67,7 +61,6 @@ public class ShipmentController {
             Shipment shipment = shipmentPanel.getShipment();
             CustomDialog dialog = shipmentPanel.createEditShipmentDialog();
             shipment.setDestination(dialog.name.getText()) ;
-            shipment.setPrice(Double.parseDouble(dialog.price.getText())) ;
             if(shipment.isPriority()){
                 if(dialog.checkBox.isSelected()){
                     shipments.demoteFromVip(shipment);
@@ -83,20 +76,17 @@ public class ShipmentController {
             {
                 if(dialog.checkBox.isSelected()){
                     shipments.promoteToVip(shipment,Integer.parseInt(dialog.numberOfDays.getText()));
-                    System.out.println("i wanna dia "+Integer.parseInt(dialog.numberOfDays.getText()));
                     loadShipments();
                 }
             }
             shipmentPanel.repaint();
             loadShipments();
-            System.out.println("edit");
         }
     };
 
     ActionListener addListener = new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
-
             //idk why i'm alive atp
             AddShipmentDialog dialog = shipmentsPanel.createAddShipment();
 
@@ -108,30 +98,21 @@ public class ShipmentController {
             Double []totalCost=new Double[]{0.0};
             Shipment []shipment = new Shipment[1];
 
-
             dialog.confirmButton.addActionListener(e1->{
                 dialog.dispose();
                 for(AddShipmentDialog.MiniProductPanel miniProductPanel: dialog.miniProductPanels){
                     products.updateProductQuantity(miniProductPanel.product,miniProductPanel.product.getQuantity()-(int)miniProductPanel.quantitySpinner.getValue());
 
                 }
-
-
                 for(AddShipmentDialog.MiniProductPanel miniProductPanel: dialog.miniProductPanels){
-
                 totalCost[0] += miniProductPanel.product.getPrice()*(int)miniProductPanel.quantitySpinner.getValue();
-                    System.out.println(totalCost[0]);
                 }
                 if(dialog.checkBox.isSelected()){
                     shipment[0] = new Shipment(Integer.parseInt(dialog.daysField.getText()),dialog.destField.getText(),totalCost[0]);
                 }
                 else
                     shipment[0] = new Shipment(dialog.destField.getText(),totalCost[0]);
-
-
-                System.out.println("disposing dialog");
             });
-
             dialog.setVisible(true);
             shipmentsPanel.addShipmentPanel(shipment[0]);
             shipments.insert(shipment[0]);
@@ -161,7 +142,9 @@ public class ShipmentController {
             Shipment shipment=shipments.searchShipment(id);
             if(shipment!=null){
                 shipmentsPanel.clearShipments();
-                shipmentsPanel.addShipmentPanel(shipment);
+                ShipmentPanel p =shipmentsPanel.addShipmentPanel(shipment);
+                p.deleteButton.addActionListener(deleteListener);
+                p.editButton.addActionListener(editListener);
             }
             else {
                 shipmentsPanel.clearShipments();

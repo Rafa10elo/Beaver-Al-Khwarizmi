@@ -33,17 +33,12 @@ public class ReportController {
     void addData(){
         reportPanel.clearHighValShipments();
         loadHighValShipments();
-
-        System.out.println("jimmy ain't working");
         String allCosts = String.valueOf(shipments.allCosts());
         String InventoryValue = String.valueOf(products.InventoryValue());
         int totalProd = products.getList().size();
-        System.out.println("dadada"+products.getList().size());
         int totalShip = shipments.getList().size();
         String totalProducts = String.valueOf(totalProd);
         String totalShipments = String.valueOf(totalShip);
-
-        System.out.println(totalProd);
         reportPanel.addReportDetailsToPanel(allCosts,InventoryValue,totalShipments,totalProducts);
         reportPanel.revalidate();
         reportPanel.repaint();

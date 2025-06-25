@@ -23,10 +23,6 @@ public class Avl <T extends Comparable<T>> {
        root = null;
    }
 
-   public void print(){
-       System.out.println(root.key);
-   }
-
    public Avl (){
        root= null;
    }
@@ -179,7 +175,6 @@ public class Avl <T extends Comparable<T>> {
        if (root == null)
          return;
        inorder(root.left);
-       System.out.println(root.key);
        inorder(root.right);
    }
 

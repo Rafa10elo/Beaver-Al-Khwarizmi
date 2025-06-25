@@ -71,7 +71,6 @@ public class ProductPanel extends JPanel{
     public CustomDialog createEditProductDialog () {
         JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(this);
 
-        System.out.println("clicked");
         JTextField editName = new JTextField(product.getProductName());
         JTextField editPrice = new JTextField(String.valueOf(product.getPrice()));
         JTextField editAmount = new JTextField(String.valueOf(product.getQuantity()));

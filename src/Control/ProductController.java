@@ -28,12 +28,10 @@ public class ProductController {
 
     public void loadProducts() {
         productsPanel.clearProducts();
-        ArrayList<Product> james = products.getList();
-
-        for (Product product : james) {
+        ArrayList<Product> productList = products.getList();
+        for (Product product : productList) {
             productsPanel.addProductPanel(product);
         }
-
         for(ProductPanel productPanel: productPanels){
             productPanel.deleteButton.addActionListener(deleteListener);
             productPanel.editButton.addActionListener(editListener);
@@ -49,11 +47,8 @@ public class ProductController {
         public void actionPerformed(ActionEvent e) {
             ProductPanel productPanel= (ProductPanel) (((JButton)e.getSource()).getParent());
             Product product = productPanel.getProduct();
-
             products.deleteProduct(product.getProductID());
             productPanels.remove(productPanel);
-
-            System.out.println(products.getList().size());
             loadProducts();
         }
     };
@@ -61,16 +56,12 @@ public class ProductController {
     ActionListener addListener = new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
-
             editDialog = productsPanel.createAddProductDialog();
             Product product = new Product(editDialog.name.getText(),Double.parseDouble(editDialog.price.getText()),Integer.parseInt(editDialog.amount.getText()));
-
             productsPanel.addProductPanel(product);
             products.insertProduct(product);
 
             loadProducts();
-
-
         }
     };
 
@@ -95,6 +86,7 @@ public class ProductController {
             if(input.equals(".")){
                 productsPanel.clearProducts();
                 loadProducts();
+
                 return;
             }
             else if (!input.matches("\\d+")) {
@@ -107,7 +99,9 @@ public class ProductController {
             Product product=products.searchProduct(id);
             if(product!=null){
                 productsPanel.clearProducts();
-                productsPanel.addProductPanel(product);
+                ProductPanel p = productsPanel.addProductPanel(product);
+                p.deleteButton.addActionListener(deleteListener);
+                p.editButton.addActionListener(editListener);
             }
             else {
                 productsPanel.clearProducts();

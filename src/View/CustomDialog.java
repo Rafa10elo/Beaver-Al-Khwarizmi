@@ -80,25 +80,18 @@ public class CustomDialog extends JDialog{
 
    }
     //used in edit non vip shipment
-    public CustomDialog(JPanel parentPanel,String l1,String l2,JTextField name , JTextField price ,JTextField days, JButton confirmButton, JFrame frame){
+    public CustomDialog(JPanel parentPanel,String l1,String l2,JTextField name,JTextField days, JButton confirmButton, JFrame frame){
         super(frame,true);
         this.parentPanel=parentPanel;
         this.l1=l1;
         this.l2=l2;
-        this.l3=l3;
         this.name = name;
-        this.price = price;
         this.confirmButton=confirmButton;
         this.numberOfDays = days;
 
-
         name = makeEmLookNicer(name);
-        price = makeEmLookNicer(price);
-
-
         setBackground(MainFrame.white);
         setLayout(new BorderLayout());
-
         JPanel panel =  new JPanel();
         panel.setBackground(MainFrame.blue);
         panel.setSize(new Dimension(10,50));
@@ -106,26 +99,20 @@ public class CustomDialog extends JDialog{
         this.add(panel,BorderLayout.NORTH);
 
         JLabel label1 = createLabel(l1);
-        JLabel label2 = createLabel(l2);
         JLabel label3 = createLabel("Promote to VIP: ");
-
-
 
         centerPanel = new JPanel();
         centerPanel.setBackground(MainFrame.white);
         centerPanel.setLayout(new BoxLayout(centerPanel,BoxLayout.Y_AXIS));
-//        centerPanel.setAlignmentX(Component.CENTER_ALIGNMENT);
         centerPanel.setBorder(new EmptyBorder(20,25,40,25));
         centerPanel.add(Box.createRigidArea(new Dimension(0,30)));
         label1.setAlignmentX(Component.CENTER_ALIGNMENT);
+        //dest
         centerPanel.add(label1);
-
+        centerPanel.add(Box.createRigidArea(new Dimension(0,25)));
         centerPanel.add(name);
-        centerPanel.add(Box.createRigidArea(new Dimension(0,25)));
-        label2.setAlignmentX(Component.CENTER_ALIGNMENT);
-        centerPanel.add(label2);
-        centerPanel.add(price);
-        centerPanel.add(Box.createRigidArea(new Dimension(0,25)));
+        centerPanel.add(Box.createRigidArea(new Dimension(0,45)));
+
         JPanel setPriorityPanel = new JPanel();
         setPriorityPanel.setLayout(new BoxLayout(setPriorityPanel,BoxLayout.X_AXIS));
         setPriorityPanel.add(Box.createRigidArea(new Dimension(50,0)));
@@ -134,9 +121,8 @@ public class CustomDialog extends JDialog{
         setPriorityPanel.setBackground(MainFrame.white);
         checkBox = new JCheckBox();
         checkBox.setBackground(MainFrame.white);
-
-
         centerPanel.add(setPriorityPanel);
+
         JLabel numberOfDaysLabel = createLabel("Days until Arrival : ");
         numberOfDaysLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
         numberOfDays = makeEmLookNicer(numberOfDays);
@@ -154,8 +140,9 @@ public class CustomDialog extends JDialog{
 
         centerPanel.add(Box.createRigidArea(new Dimension(0,25)));
         centerPanel.add(numberOfDaysLabel);
+        centerPanel.add(Box.createRigidArea(new Dimension(0,25)));
         centerPanel.add(numberOfDays);
-//        centerPanel.add(Box.createRigidArea(new Dimension(0,40)));
+        centerPanel.add(Box.createRigidArea(new Dimension(0,40)));
 
         this.add(centerPanel,BorderLayout.CENTER);
 
@@ -172,20 +159,17 @@ public class CustomDialog extends JDialog{
 
     }
     //used in edit vip shipment
-    public CustomDialog(String l1,String l2,String l3,JTextField name , JTextField price , JTextField amount, JButton confirmButton, JFrame frame){
+    public CustomDialog(String l1,String l2,JTextField name , JTextField amount, JButton confirmButton, JFrame frame){
         super(frame,true);
-        this.parentPanel=parentPanel;
         this.l1=l1;
         this.l2=l2;
-        this.l3=l3;
         this.name = name;
         this.amount=amount;
-        this.price = price;
+
         this.confirmButton=confirmButton;
 
         name = makeEmLookNicer(name);
         amount = makeEmLookNicer(amount);
-        price = makeEmLookNicer(price);
 
         setBackground(MainFrame.white);
         setLayout(new BorderLayout());
@@ -197,8 +181,7 @@ public class CustomDialog extends JDialog{
         this.add(panel,BorderLayout.NORTH);
 
         JLabel label1 = createLabel(l1);
-        JLabel label2 = createLabel(l2);
-        JLabel label3 = createLabel(l3);
+        JLabel label3 = createLabel(l2);
 
         centerPanel = new JPanel();
         centerPanel.setBackground(MainFrame.white);
@@ -209,14 +192,12 @@ public class CustomDialog extends JDialog{
         centerPanel.add(Box.createRigidArea(new Dimension(0,5)));
         centerPanel.add(name);
         centerPanel.add(Box.createRigidArea(new Dimension(0,25)));
-        centerPanel.add(makeRow(label2));
         centerPanel.add(Box.createRigidArea(new Dimension(0,5)));
-        centerPanel.add(price);
-        centerPanel.add(Box.createRigidArea(new Dimension(0,25)));
+
         centerPanel.add(makeRow(label3));
         centerPanel.add(Box.createRigidArea(new Dimension(0,5)));
         centerPanel.add(amount);
-        centerPanel.add(Box.createRigidArea(new Dimension(0,25)));
+        centerPanel.add(Box.createRigidArea(new Dimension(0,30)));
 
         JPanel setPriorityPanel = new JPanel();
         JLabel label4 = createLabel("Demote from VIP : ");
@@ -251,7 +232,7 @@ public class CustomDialog extends JDialog{
        label.setForeground(MainFrame.blue);
        label.setFont(MainFrame.FONT_REGULAR.deriveFont(15f));
        label.setHorizontalAlignment(SwingConstants.RIGHT);
-       label.setAlignmentX(Component.RIGHT_ALIGNMENT);
+       label.setAlignmentX(Component.CENTER_ALIGNMENT);
 
        return label;
    }

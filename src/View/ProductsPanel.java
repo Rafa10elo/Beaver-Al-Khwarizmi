@@ -88,7 +88,7 @@ public class ProductsPanel extends JPanel {
     }
 
 
-    public void addProductPanel(Product product) {
+    public ProductPanel addProductPanel(Product product) {
         ProductPanel p = new ProductPanel(product);
 
         contentPanel.add(p);
@@ -96,6 +96,7 @@ public class ProductsPanel extends JPanel {
 
         contentPanel.add(Box.createRigidArea(new Dimension(0, 10)));
         contentPanel.revalidate();
+        return p;
     }
 
     public void addToProductsPanel(JLabel label){

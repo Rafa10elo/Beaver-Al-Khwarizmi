@@ -92,12 +92,13 @@ public class ShipmentsPanel extends JPanel {
 
     }
 
-    public void addShipmentPanel(Shipment shipment) {
+    public ShipmentPanel addShipmentPanel(Shipment shipment) {
         ShipmentPanel p = new ShipmentPanel(shipment);
         contentPanel.add(p);
         shipmentPanels.add(p);
         contentPanel.add(Box.createRigidArea(new Dimension(0, 10)));
         contentPanel.revalidate();
+        return p;
     }
 
     public void clearShipments() {

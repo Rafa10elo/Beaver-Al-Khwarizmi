@@ -69,12 +69,12 @@ public class ShipmentPanel extends JPanel {
         JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(this);
 
         JTextField editDestination = new JTextField(shipment.getDestination());
-        JTextField editPrice = new JTextField(String.valueOf(shipment.getPrice()));
+        JTextField editPrice = new JTextField("");
         JTextField editDeliveryDate = new JTextField();
         JButton confirmButton = new JButton("okay");
 
         if(shipment.isPriority()){
-            editShipmentDialog = new CustomDialog("Destination: ","Price: ","Days until Arrival: ",editDestination,editPrice,editDeliveryDate,confirmButton, frame);
+            editShipmentDialog = new CustomDialog("Destination: ","Days until Arrival: ",editDestination,editDeliveryDate,confirmButton, frame);
             editShipmentDialog.setSize(new Dimension(400, 550));
             editShipmentDialog.setLocationRelativeTo(null);
             editShipmentDialog.setVisible(true);
@@ -82,7 +82,7 @@ public class ShipmentPanel extends JPanel {
         }
         else{
 
-            editShipmentDialog = new CustomDialog(this,"Destination: ","Price: ",editDestination,editPrice,editDeliveryDate,confirmButton, frame);
+            editShipmentDialog = new CustomDialog(this,"Destination: ","",editDestination,editDeliveryDate,confirmButton, frame);
             editShipmentDialog.setSize(new Dimension(400, 550));
             editShipmentDialog.setLocationRelativeTo(null);
             editShipmentDialog.setVisible(true);
