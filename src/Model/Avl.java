@@ -185,8 +185,6 @@ public class Avl <T extends Comparable<T>> {
 
     public void getAllStuff(ArrayList<T>JIM){
         inorder(root,JIM);
-
-        System.out.println ("Arrasssss"  + JIM.size());
     }
 
     private void inorder(NODE root, ArrayList<T> james){

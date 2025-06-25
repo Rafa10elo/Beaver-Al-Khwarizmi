@@ -70,7 +70,7 @@ public class Heap {
 
     private boolean isDateTaken(LocalDate date) {
         for (Shipment s : heap) {
-            if (s.getDeliveryDate().equals(date)) {
+            if (!s.isPriority()&&s.getDeliveryDate().equals(date)) {
                 return true;
             }
         }
@@ -95,14 +95,6 @@ public class Heap {
         //so we search to the nearest available date
         while (true) {
             boolean takenDate = isDateTakenByVIP(vipDate);
-
-//            for (Shipment s : heap) {
-//                if (s.isPriority() && s.getDeliveryDate().equals(vipDate)) {
-//                    takenDate = true;
-//                    break;
-//                }
-//            }
-
             if (!takenDate) break;
             vipDate = vipDate.plusDays(1);
         }
@@ -110,18 +102,21 @@ public class Heap {
         heap.add(vipShipment);
         heapifyUp(heap.size() - 1);
 
-        for (Shipment s : heap) {
-            if (!s.isPriority() && !s.equals(vipShipment)
-                    && !s.getDeliveryDate().isBefore(vipDate)) {
-                LocalDate newDate = s.getDeliveryDate().plusDays(1);
+        if(isDateTaken(vipDate)){
+            for (Shipment s : heap) {
+                if (!s.isPriority() && !s.equals(vipShipment)
+                        && !s.getDeliveryDate().isBefore(vipDate)) {
+                    LocalDate newDate = s.getDeliveryDate().plusDays(1);
 
-                while (isDateTaken(newDate) || isDateTakenByVIP(newDate)) {
-                    newDate = newDate.plusDays(1);
+                    while (isDateTaken(newDate) || isDateTakenByVIP(newDate)) {
+                        newDate = newDate.plusDays(1);
+                    }
+
+                    s.setDeliveryDate(newDate);
                 }
-
-                s.setDeliveryDate(newDate);
             }
         }
+
 
         //to rearrange the heap
         rebuildHeap();

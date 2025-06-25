@@ -2,11 +2,8 @@ package repository;
 
 import Model.Avl;
 import Model.Heap;
-import Model.Product;
 import Model.Shipment;
-
 import java.util.ArrayList;
-import java.util.Optional;
 
 public class ShipmentRepo {
     private Heap shipments;
@@ -27,8 +24,6 @@ public class ShipmentRepo {
         shipmentAvl.insertHelper(shipment);
     }
 
-
-
     //delete from everywhere 😡😡
     public void delete(int id){
         shipmentAvl.deleteHelper(id);
@@ -43,13 +38,11 @@ public class ShipmentRepo {
             shipment1.setShipmentId(shipment.getShipmentId());
             delete(shipment.getShipmentId());
             insert(shipment1);
-            System.out.println("pleeaaaseeee");
         }
             return false;
     }
 
     public void demoteFromVip(Shipment shipment){
-        System.out.println("inn");
         Shipment shipment1;
             //the minus 15 ,cus the vip shipment has an increased price
             // (it's now a normal shipment so there is no need to the raise)
@@ -61,16 +54,14 @@ public class ShipmentRepo {
     }
 
     // I wanted to name it updateTheDate,but i have to be professional
-    public boolean rescheduleShipment(Shipment shipment, int days){
+    public void rescheduleShipment(Shipment shipment, int days){
         Shipment shipment1;
-        if(shipment.isPriority()){
+        if(days>=0){
+            delete(shipment.getShipmentId());
             shipment1=new Shipment(days,shipment.getDestination(),shipment.getPrice());
             shipment1.setShipmentId(shipment.getShipmentId());
-            delete(shipment.getShipmentId());
             insert(shipment1);
-            return true;
-        }
-            return false;
+            }
 
     }
 
@@ -118,7 +109,5 @@ public class ShipmentRepo {
     public void print (){
         shipments.printHeap();
     }
-
-
 
 }

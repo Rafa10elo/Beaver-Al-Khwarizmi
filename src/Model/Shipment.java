@@ -89,7 +89,6 @@ public class Shipment implements Comparable<Shipment>{
         this.priority = priority;
     }
 
-
     @Override
     public int compareTo(Shipment o) {
         return Integer.compare(this.shipmentId,o.shipmentId);
