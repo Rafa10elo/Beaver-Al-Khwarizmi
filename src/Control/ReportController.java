@@ -33,6 +33,8 @@ public class ReportController {
     void addData(){
         reportPanel.clearHighValShipments();
         loadHighValShipments();
+        reportPanel.clearMostPriorityShipment();
+        reportPanel.addPriorityShipment(shipments.theMostPriorityShipment());
         String allCosts = String.valueOf(shipments.allCosts());
         String InventoryValue = String.valueOf(products.InventoryValue());
         int totalProd = products.getList().size();

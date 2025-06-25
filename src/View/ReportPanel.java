@@ -14,8 +14,7 @@ public class ReportPanel extends JPanel {
 
     public JPanel highValProductsPanel;
     public JPanel reportDetailsPanel;
-
-
+    public JPanel mostPriorityProductPanel;
 
     public ReportPanel() {
         setLayout(new BorderLayout());
@@ -36,10 +35,9 @@ public class ReportPanel extends JPanel {
         JPanel highValPanel = new JPanel();
         JLabel highValLabel = createLabel("High Value Shipments: ");
         highValPanel.setLayout(new BoxLayout(highValPanel,BoxLayout.X_AXIS));
-        highValPanel.setBorder(new EmptyBorder(55,60,55,60));
+        highValPanel.setBorder(new EmptyBorder(20,360,20,0));
         highValPanel.setBackground(MainFrame.white);
         highValPanel.add(highValLabel);
-
 
         BorderPanel.add(highValPanel,BorderLayout.NORTH);
         highValProductsPanel = new JPanel() ;
@@ -60,7 +58,16 @@ public class ReportPanel extends JPanel {
             }
         });
 
+        mostPriorityProductPanel = new JPanel();
+        mostPriorityProductPanel.setLayout(new BoxLayout(mostPriorityProductPanel,BoxLayout.Y_AXIS));
+        mostPriorityProductPanel.setBackground(MainFrame.white);
+        mostPriorityProductPanel.setBorder(new EmptyBorder(0, 30, 0, 30));
+
+
+
         BorderPanel.add(scrollProductMenu,BorderLayout.CENTER);
+        BorderPanel.add(mostPriorityProductPanel,BorderLayout.SOUTH);
+
         this.add(BorderPanel,BorderLayout.CENTER);
 
         JPanel footerBar = new JPanel();
@@ -91,7 +98,7 @@ public class ReportPanel extends JPanel {
 
     JPanel createField(String labelText, String valueText, Font labelFont, Font valueFont, Color labelColor, Color valueColor) {
         JPanel panel = new JPanel();
-        panel.setOpaque(false); // inherit background
+        panel.setOpaque(false);
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 
         JLabel label = MainPanel.createLabel(labelText, labelFont, labelColor);
@@ -121,8 +128,19 @@ public class ReportPanel extends JPanel {
         label.setFont(MainFrame.FONT_BOLD.deriveFont(20f));
         label.setHorizontalAlignment(SwingConstants.RIGHT);
         label.setAlignmentX(Component.CENTER_ALIGNMENT);
-
         return label;
+    }
+
+    public void addPriorityShipment(Shipment shipment){
+
+        JLabel mostPriority = createLabel("Most Priority Shipment: ");
+        mostPriorityProductPanel.add(Box.createRigidArea(new Dimension(0,20)));
+        mostPriorityProductPanel.add(mostPriority);
+        mostPriorityProductPanel.add(Box.createRigidArea(new Dimension(0,30)));
+        JPanel shipmentPanel = createReportShipmentPanel(shipment);
+        shipmentPanel.setBorder(BorderFactory.createMatteBorder(1, 10, 1, 1, MainFrame.red));
+        mostPriorityProductPanel.add(shipmentPanel);
+        mostPriorityProductPanel.add(Box.createRigidArea(new Dimension(0,20)));
     }
 
     public void addShipmentToHighValPanel (Shipment shipment){
@@ -134,7 +152,7 @@ public class ReportPanel extends JPanel {
 
     JPanel createReportShipmentPanel(Shipment shipment){
         JPanel panel= new JPanel();
-        panel.setBorder(BorderFactory.createMatteBorder(1, 10, 1, 1, MainFrame.red));
+        panel.setBorder(BorderFactory.createMatteBorder(1, 10, 1, 1, MainFrame.blue));
         panel.setSize(new Dimension(300,100));
         panel.setLayout(new BoxLayout(panel, BoxLayout.X_AXIS));
         panel.setBackground(MainFrame.white);
@@ -153,6 +171,11 @@ public class ReportPanel extends JPanel {
         return panel;
     }
 
+    public void clearMostPriorityShipment(){
+        mostPriorityProductPanel.removeAll();
+        mostPriorityProductPanel.revalidate();
+        mostPriorityProductPanel.repaint();
+    }
 
     public void clearHighValShipments() {
         highValProductsPanel.removeAll();
@@ -167,6 +190,5 @@ public class ReportPanel extends JPanel {
         reportDetailsPanel = createReportDetailsPanel(allCosts,InventoryValue,totalShipments,totalProducts);
         this.add(reportDetailsPanel,BorderLayout.WEST);
     }
-
 
 }
