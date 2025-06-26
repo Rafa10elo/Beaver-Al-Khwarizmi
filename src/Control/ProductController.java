@@ -83,7 +83,7 @@ public class ProductController {
         public void actionPerformed(ActionEvent e) {
             String input = productsPanel.search.getText().trim();
             //to get back all panels search "." (ill make it more user-friendly later)
-            if(input.equals(".")){
+            if(input.equals("")){
                 productsPanel.clearProducts();
                 loadProducts();
 
