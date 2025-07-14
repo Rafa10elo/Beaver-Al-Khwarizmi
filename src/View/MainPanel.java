@@ -1,5 +1,7 @@
 package View;
 
+import com.sun.tools.javac.Main;
+
 import javax.swing.*;
 import javax.swing.border.BevelBorder;
 import javax.swing.plaf.basic.BasicBorders;
@@ -9,12 +11,16 @@ public class MainPanel extends JPanel {
     public static JButton productsButton;
     public static JButton shipmentsButton;
     public static JButton reportButton;
+//    public static JButton AdminButton;
+//    public static JButton CustomerButton;
 
 
     public MainPanel() {
         setLayout(new BorderLayout());
 
+
         //title panel
+
         JPanel titlePanel = new JPanel(new GridBagLayout());
         titlePanel.setBorder(BorderFactory.createMatteBorder(0, 0, 10, 0, MainFrame.red));
         GridBagConstraints gbc0 = new GridBagConstraints();
