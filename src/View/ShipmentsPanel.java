@@ -126,9 +126,6 @@ public class ShipmentsPanel extends JPanel {
                 days.setText("");
             }
         });
-
-
-        JButton confirmButton = new JButton("okay");
         addProductDialog = new AddShipmentDialog(destination,days,checkbox,frame);
 
         return addProductDialog;
