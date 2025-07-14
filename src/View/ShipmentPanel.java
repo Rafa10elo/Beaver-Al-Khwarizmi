@@ -73,6 +73,7 @@ public class ShipmentPanel extends JPanel {
         JTextField editDeliveryDate = new JTextField();
         JButton confirmButton = new JButton("okay");
 
+
         if(shipment.isPriority()){
             editShipmentDialog = new CustomDialog("Destination: ","Days until Arrival: ",editDestination,editDeliveryDate,confirmButton, frame);
             editShipmentDialog.setSize(new Dimension(400, 550));

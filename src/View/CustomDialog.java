@@ -121,6 +121,7 @@ public class CustomDialog extends JDialog{
         setPriorityPanel.setBackground(MainFrame.white);
         checkBox = new JCheckBox();
         checkBox.setBackground(MainFrame.white);
+
         centerPanel.add(setPriorityPanel);
 
         JLabel numberOfDaysLabel = createLabel("Days until Arrival : ");
@@ -209,6 +210,15 @@ public class CustomDialog extends JDialog{
         setPriorityPanel.setBackground(MainFrame.white);
         checkBox = new JCheckBox();
         checkBox.setBackground(MainFrame.white);
+        JTextField[] am  = new JTextField[1];
+        am[0]= amount;
+        checkBox.addItemListener(event -> {
+            if (checkBox.isSelected()) {
+                am[0].setEnabled(false);
+            } else {
+                am[0].setEnabled(true);
+            }
+        });
         setPriorityPanel.add(checkBox);
         centerPanel.add(setPriorityPanel);
         centerPanel.add(Box.createRigidArea(new Dimension(0,40)));

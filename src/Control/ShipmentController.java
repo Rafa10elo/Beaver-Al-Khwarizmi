@@ -86,6 +86,7 @@ public class ShipmentController {
 
 
             if(shipment.isPriority()){
+
                 if(dialog.checkBox.isSelected()){
                     shipments.demoteFromVip(shipment);
                 }
