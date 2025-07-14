@@ -81,7 +81,7 @@ boolean done =true;
             Product product = new Product(editDialog.name.getText(), Double.parseDouble(editDialog.price.getText()), Integer.parseInt(editDialog.amount.getText()));
             productsPanel.addProductPanel(product);
             products.insertProduct(product);
-            JOptionPane.showMessageDialog(null, "the product is edited successfully", "done!", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, "the product is added successfully", "done!", JOptionPane.INFORMATION_MESSAGE);
 
         }
             loadProducts();
