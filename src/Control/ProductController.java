@@ -68,7 +68,7 @@ boolean done =true;
                 JOptionPane.showMessageDialog(null, "the name of the product must have at least two chars", "invalid product name", JOptionPane.ERROR_MESSAGE);
                 done=false;
                 }
-            if(!isFullyDouble(editDialog.price.getText())&&Double.parseDouble(editDialog.price.getText())<=0 ) {
+            if(!isFullyDouble(editDialog.price.getText())||Double.parseDouble(editDialog.price.getText())<=0 ) {
                 JOptionPane.showMessageDialog(null, "the price of the product must be a number", "invalid product price", JOptionPane.ERROR_MESSAGE);
                 done=false;
             }
