@@ -144,11 +144,12 @@ public class ShipmentController {
 
                 }
                 if(dialog.checkBox.isSelected()){
-                    if(isFullyInt(dialog.daysField.getText())&&Integer.parseInt(dialog.daysField.getText())>=0)
+                    if(isFullyInt(dialog.daysField.getText())&&Integer.parseInt(dialog.daysField.getText())>=0&&dialog.destField.getText().length() >= 2&&didBuy[0])
                         shipment[0] = new Shipment(Integer.parseInt(dialog.daysField.getText()),dialog.destField.getText(),totalCost[0]);
 
                 }
                 else
+                if(dialog.destField.getText().length() >= 2&&didBuy[0])
                     shipment[0] = new Shipment(dialog.destField.getText(),totalCost[0]);
             });
             dialog.setVisible(true);
@@ -158,9 +159,10 @@ public class ShipmentController {
                         if (dialog.destField.getText().length() >= 2) {
                             shipmentsPanel.addShipmentPanel(shipment[0]);
                             shipments.insert(shipment[0]);
-                        } else
-                            JOptionPane.showMessageDialog(null, "please pick a valid destination   ", "RIP SHIPMENT!!?", JOptionPane.ERROR_MESSAGE);
+                        } else {
 
+                            JOptionPane.showMessageDialog(null, "please pick a valid destination   ", "RIP SHIPMENT!!?", JOptionPane.ERROR_MESSAGE);
+                        }
 
 
 

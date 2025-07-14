@@ -5,7 +5,7 @@ import java.util.Comparator;
 
 public class Shipment implements Comparable<Shipment>{
     private int shipmentId;
-    private static int cnt=0;
+    public static int cnt=0;
     private LocalDate deliveryDate;
     private String destination;
     private double price;
