@@ -144,7 +144,7 @@ public class ShipmentController {
 
                 }
                 if(dialog.checkBox.isSelected()){
-                    if(isFullyInt(dialog.daysField.getText()))
+                    if(isFullyInt(dialog.daysField.getText())&&Integer.parseInt(dialog.daysField.getText())>=0)
                         shipment[0] = new Shipment(Integer.parseInt(dialog.daysField.getText()),dialog.destField.getText(),totalCost[0]);
 
                 }
