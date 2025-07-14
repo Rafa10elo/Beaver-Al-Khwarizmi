@@ -102,7 +102,7 @@ public class ShipmentController {
             else
             {
                 if(dialog.checkBox.isSelected()){
-                    if(dialog.numberOfDays.getText()!=null && isFullyInt(dialog.numberOfDays.getText())&&Integer.parseInt(dialog.amount.getText())>=0)
+                    if(dialog.numberOfDays.getText()!=null && isFullyInt(dialog.numberOfDays.getText())&&Integer.parseInt(dialog.numberOfDays.getText())>=0)
                         shipments.promoteToVip(shipment,Integer.parseInt(dialog.numberOfDays.getText()));
                     else
                         JOptionPane.showMessageDialog(null ,"you have to enter a valid day count","error",JOptionPane.ERROR_MESSAGE);
@@ -129,18 +129,18 @@ public class ShipmentController {
             Double []totalCost=new Double[]{0.0};
             Shipment []shipment = new Shipment[1];
             boolean[] didBuy = new boolean[1];
-            didBuy[0]= true;
+            didBuy[0]= false;
 
             dialog.confirmButton.addActionListener(e1->{
                 dialog.dispose();
                 for(AddShipmentDialog.MiniProductPanel miniProductPanel: dialog.miniProductPanels){
                     products.updateProductQuantity(miniProductPanel.product,miniProductPanel.product.getQuantity()-(int)miniProductPanel.quantitySpinner.getValue());
-                    didBuy[0]= false;
 
                 }
                 for(AddShipmentDialog.MiniProductPanel miniProductPanel: dialog.miniProductPanels){
                 totalCost[0] += miniProductPanel.product.getPrice()*(int)miniProductPanel.quantitySpinner.getValue();
-                    didBuy[0]= false;
+                if (totalCost[0]!=0)
+                didBuy[0]= true;
 
                 }
                 if(dialog.checkBox.isSelected()){
@@ -155,7 +155,6 @@ public class ShipmentController {
 
             if(shipment[0]!=null) {
                 if (didBuy[0]) {
-
                         if (dialog.destField.getText().length() >= 2) {
                             shipmentsPanel.addShipmentPanel(shipment[0]);
                             shipments.insert(shipment[0]);

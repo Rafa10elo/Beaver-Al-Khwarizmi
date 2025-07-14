@@ -134,7 +134,7 @@ boolean done =true;
             if (isFullyInt(dialog.amount.getText())&&Integer.parseInt(dialog.amount.getText())>=1&&Integer.parseInt(dialog.amount.getText())<=1000)
             products.updateProductQuantity(product,Integer.parseInt(dialog.amount.getText()));
             else {
-                JOptionPane.showMessageDialog(null, "the amount of the product must be a positive number", "invalid product amount", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "the amount of the product must be a number between 1-1000", "invalid product amount", JOptionPane.ERROR_MESSAGE);
                 done = false;
 
             }
