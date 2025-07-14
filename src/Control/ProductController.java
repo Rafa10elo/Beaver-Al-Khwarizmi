@@ -52,7 +52,7 @@ public class ProductController {
             products.deleteProduct(product.getProductID());
             productPanels.remove(productPanel);
             loadProducts();
-            JOptionPane.showMessageDialog(null, "the product  "+ product.getProductID()+"  is deleted successfully", "done!", JOptionPane.PLAIN_MESSAGE);
+            JOptionPane.showMessageDialog(null, "the product  "+ product.getProductName()+"  is deleted successfully", "done!", JOptionPane.PLAIN_MESSAGE);
 
         }
     };
@@ -69,12 +69,12 @@ boolean done =true;
                 done=false;
                 }
             if(!isFullyDouble(editDialog.price.getText())||Double.parseDouble(editDialog.price.getText())<=0 ) {
-                JOptionPane.showMessageDialog(null, "the price of the product must be a number", "invalid product price", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "the price of the product must be a positive number", "invalid product price", JOptionPane.ERROR_MESSAGE);
                 done=false;
             }
-            if(!isFullyInt(editDialog.amount.getText()))
+            if(!isFullyInt(editDialog.amount.getText())||Integer.parseInt(editDialog.amount.getText())<1||Integer.parseInt(editDialog.amount.getText())>1000)
             {
-                JOptionPane.showMessageDialog(null, "the amount of the product must be a number", "invalid product amount", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "the amount of the product must be a number between 1-1000", "invalid product amount", JOptionPane.ERROR_MESSAGE);
                 done = false;
             }
         if(done) {
@@ -131,10 +131,10 @@ boolean done =true;
                 done = false;
 
             }
-            if (isFullyInt(dialog.amount.getText()))
+            if (isFullyInt(dialog.amount.getText())&&Integer.parseInt(dialog.amount.getText())>=1&&Integer.parseInt(dialog.amount.getText())<=1000)
             products.updateProductQuantity(product,Integer.parseInt(dialog.amount.getText()));
             else {
-                JOptionPane.showMessageDialog(null, "the amount of the product must be a number", "invalid product amount", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "the amount of the product must be a positive number", "invalid product amount", JOptionPane.ERROR_MESSAGE);
                 done = false;
 
             }

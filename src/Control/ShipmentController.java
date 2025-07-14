@@ -91,7 +91,7 @@ public class ShipmentController {
                     shipments.demoteFromVip(shipment);
                 }
                 else{
-                    if(dialog.amount.getText()!=null && isFullyInt(dialog.amount.getText())){
+                    if(dialog.amount.getText()!=null && isFullyInt(dialog.amount.getText()) && Integer.parseInt(dialog.amount.getText())>=0){
                         shipments.rescheduleShipment(shipment,Integer.parseInt(dialog.amount.getText()));
                     }
                     else
@@ -102,10 +102,10 @@ public class ShipmentController {
             else
             {
                 if(dialog.checkBox.isSelected()){
-                    if(dialog.numberOfDays.getText()!=null && isFullyInt(dialog.numberOfDays.getText()))
+                    if(dialog.numberOfDays.getText()!=null && isFullyInt(dialog.numberOfDays.getText())&&Integer.parseInt(dialog.amount.getText())>=0)
                         shipments.promoteToVip(shipment,Integer.parseInt(dialog.numberOfDays.getText()));
                     else
-                        JOptionPane.showMessageDialog(null ,"you have to enter a valid day count ","error",JOptionPane.ERROR_MESSAGE);
+                        JOptionPane.showMessageDialog(null ,"you have to enter a valid day count","error",JOptionPane.ERROR_MESSAGE);
 
                     loadShipments();
                 }
@@ -128,15 +128,20 @@ public class ShipmentController {
 
             Double []totalCost=new Double[]{0.0};
             Shipment []shipment = new Shipment[1];
+            boolean[] didBuy = new boolean[1];
+            didBuy[0]= true;
 
             dialog.confirmButton.addActionListener(e1->{
                 dialog.dispose();
                 for(AddShipmentDialog.MiniProductPanel miniProductPanel: dialog.miniProductPanels){
                     products.updateProductQuantity(miniProductPanel.product,miniProductPanel.product.getQuantity()-(int)miniProductPanel.quantitySpinner.getValue());
+                    didBuy[0]= false;
 
                 }
                 for(AddShipmentDialog.MiniProductPanel miniProductPanel: dialog.miniProductPanels){
                 totalCost[0] += miniProductPanel.product.getPrice()*(int)miniProductPanel.quantitySpinner.getValue();
+                    didBuy[0]= false;
+
                 }
                 if(dialog.checkBox.isSelected()){
                     if(isFullyInt(dialog.daysField.getText()))
@@ -149,7 +154,7 @@ public class ShipmentController {
             dialog.setVisible(true);
 
             if(shipment[0]!=null) {
-                if (shipment[0].getPrice() > 0) {
+                if (didBuy[0]) {
 
                         if (dialog.destField.getText().length() >= 2) {
                             shipmentsPanel.addShipmentPanel(shipment[0]);
