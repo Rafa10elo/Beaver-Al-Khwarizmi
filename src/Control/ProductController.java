@@ -61,30 +61,32 @@ public class ProductController {
         @Override
         public void actionPerformed(ActionEvent e) {
             editDialog = productsPanel.createAddProductDialog();
+            if(editDialog.isConfirmed[0]){
+                boolean done =true;
 
-boolean done =true;
-
-            if(editDialog.name.getText().length()<=2){
-                JOptionPane.showMessageDialog(null, "the name of the product must have at least two chars", "invalid product name", JOptionPane.ERROR_MESSAGE);
-                done=false;
+                if(editDialog.name.getText().length()<=2){
+                    JOptionPane.showMessageDialog(null, "the name of the product must have at least two chars", "invalid product name", JOptionPane.ERROR_MESSAGE);
+                    done=false;
                 }
-            if(!isFullyDouble(editDialog.price.getText())||Double.parseDouble(editDialog.price.getText())<=0 ) {
-                JOptionPane.showMessageDialog(null, "the price of the product must be a positive number", "invalid product price", JOptionPane.ERROR_MESSAGE);
-                done=false;
-            }
-            if(!isFullyInt(editDialog.amount.getText())||Integer.parseInt(editDialog.amount.getText())<1||Integer.parseInt(editDialog.amount.getText())>1000)
-            {
-                JOptionPane.showMessageDialog(null, "the amount of the product must be a number between 1-1000", "invalid product amount", JOptionPane.ERROR_MESSAGE);
-                done = false;
-            }
-        if(done) {
-            Product product = new Product(editDialog.name.getText(), Double.parseDouble(editDialog.price.getText()), Integer.parseInt(editDialog.amount.getText()));
-            productsPanel.addProductPanel(product);
-            products.insertProduct(product);
-            JOptionPane.showMessageDialog(null, "the product is added successfully", "done!", JOptionPane.INFORMATION_MESSAGE);
+                if(!isFullyDouble(editDialog.price.getText())||Double.parseDouble(editDialog.price.getText())<=0 ) {
+                    JOptionPane.showMessageDialog(null, "the price of the product must be a positive number", "invalid product price", JOptionPane.ERROR_MESSAGE);
+                    done=false;
+                }
+                if(!isFullyInt(editDialog.amount.getText())||Integer.parseInt(editDialog.amount.getText())<1||Integer.parseInt(editDialog.amount.getText())>1000)
+                {
+                    JOptionPane.showMessageDialog(null, "the amount of the product must be a number between 1-1000", "invalid product amount", JOptionPane.ERROR_MESSAGE);
+                    done = false;
+                }
+                if(done) {
+                    Product product = new Product(editDialog.name.getText(), Double.parseDouble(editDialog.price.getText()), Integer.parseInt(editDialog.amount.getText()));
+                    productsPanel.addProductPanel(product);
+                    products.insertProduct(product);
+                    JOptionPane.showMessageDialog(null, "the product is added successfully", "done!", JOptionPane.INFORMATION_MESSAGE);
 
-        }
-            loadProducts();
+                }
+                loadProducts();
+            }
+
         }
     };
 
@@ -117,33 +119,35 @@ boolean done =true;
             int a = product.getQuantity();
 
             boolean done= true;
+            if (dialog.isConfirmed[0]){
 
-            if(dialog.name.getText().length()>=2)
-            product.setProductName(dialog.name.getText()) ;
-            else {
-                JOptionPane.showMessageDialog(null, "the name of the product must have at least two chars", "invalid product name", JOptionPane.ERROR_MESSAGE);
-                done = false;
+                if(dialog.name.getText().length()>=2)
+                    product.setProductName(dialog.name.getText()) ;
+                else {
+                    JOptionPane.showMessageDialog(null, "the name of the product must have at least two chars", "invalid product name", JOptionPane.ERROR_MESSAGE);
+                    done = false;
+                }
+                if(isFullyDouble(dialog.price.getText()) &&Double.parseDouble(dialog.price.getText())>0)
+                    products.updateProductPrice(product,Double.parseDouble(dialog.price.getText()));
+                else{
+                    JOptionPane.showMessageDialog(null,"the price of the product must be a number" ,"invalid product price" , JOptionPane.ERROR_MESSAGE);
+                    done = false;
+
+                }
+                if (isFullyInt(dialog.amount.getText())&&Integer.parseInt(dialog.amount.getText())>=1&&Integer.parseInt(dialog.amount.getText())<=1000)
+                    products.updateProductQuantity(product,Integer.parseInt(dialog.amount.getText()));
+                else {
+                    JOptionPane.showMessageDialog(null, "the amount of the product must be a number between 1-1000", "invalid product amount", JOptionPane.ERROR_MESSAGE);
+                    done = false;
+
+                }
+                if(done&&!s.equals(product.getProductName())||d!= product.getPrice()||a != product.getQuantity())
+                    JOptionPane.showMessageDialog(null, "the product is edited successfully", "done!", JOptionPane.INFORMATION_MESSAGE);
+
+
+
+                loadProducts();
             }
-            if(isFullyDouble(dialog.price.getText()) &&Double.parseDouble(dialog.price.getText())>0)
-            products.updateProductPrice(product,Double.parseDouble(dialog.price.getText()));
-            else{
-            JOptionPane.showMessageDialog(null,"the price of the product must be a number" ,"invalid product price" , JOptionPane.ERROR_MESSAGE);
-                done = false;
-
-            }
-            if (isFullyInt(dialog.amount.getText())&&Integer.parseInt(dialog.amount.getText())>=1&&Integer.parseInt(dialog.amount.getText())<=1000)
-            products.updateProductQuantity(product,Integer.parseInt(dialog.amount.getText()));
-            else {
-                JOptionPane.showMessageDialog(null, "the amount of the product must be a number between 1-1000", "invalid product amount", JOptionPane.ERROR_MESSAGE);
-                done = false;
-
-            }
-            if(done&&!s.equals(product.getProductName())||d!= product.getPrice()||a != product.getQuantity())
-                JOptionPane.showMessageDialog(null, "the product is edited successfully", "done!", JOptionPane.INFORMATION_MESSAGE);
-
-
-
-            loadProducts();
         }
     };
 

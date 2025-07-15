@@ -78,40 +78,43 @@ public class ShipmentController {
             ShipmentPanel shipmentPanel= (ShipmentPanel) ((JButton)e.getSource()).getParent();
             Shipment shipment = shipmentPanel.getShipment();
             CustomDialog dialog = shipmentPanel.createEditShipmentDialog();
-            if(dialog.name.getText().length()>=2)
-            shipment.setDestination(dialog.name.getText()) ;
-            else
-                JOptionPane.showMessageDialog(null ,"you have to enter a valid name ","error",JOptionPane.ERROR_MESSAGE);
+            if(dialog.isConfirmed[0]){
+                if(dialog.name.getText().length()>=2)
+                    shipment.setDestination(dialog.name.getText()) ;
+                else
+                    JOptionPane.showMessageDialog(null ,"you have to enter a valid name ","error",JOptionPane.ERROR_MESSAGE);
 
 
 
-            if(shipment.isPriority()){
+                if(shipment.isPriority()){
 
-                if(dialog.checkBox.isSelected()){
-                    shipments.demoteFromVip(shipment);
-                }
-                else{
-                    if(dialog.amount.getText()!=null && isFullyInt(dialog.amount.getText()) && Integer.parseInt(dialog.amount.getText())>=0){
-                        shipments.rescheduleShipment(shipment,Integer.parseInt(dialog.amount.getText()));
+                    if(dialog.checkBox.isSelected()){
+                        shipments.demoteFromVip(shipment);
                     }
-                    else
-                        JOptionPane.showMessageDialog(null ,"you have to enter a valid day count ","error",JOptionPane.ERROR_MESSAGE);
+                    else{
+                        if(dialog.amount.getText()!=null && isFullyInt(dialog.amount.getText()) && Integer.parseInt(dialog.amount.getText())>=0){
+                            shipments.rescheduleShipment(shipment,Integer.parseInt(dialog.amount.getText()));
+                        }
+                        else
+                            JOptionPane.showMessageDialog(null ,"you have to enter a valid day count ","error",JOptionPane.ERROR_MESSAGE);
+                    }
+                    loadShipments();//this is a hopeless trial to make it work
                 }
-                loadShipments();//this is a hopeless trial to make it work
-            }
-            else
-            {
-                if(dialog.checkBox.isSelected()){
-                    if(dialog.numberOfDays.getText()!=null && isFullyInt(dialog.numberOfDays.getText())&&Integer.parseInt(dialog.numberOfDays.getText())>=0)
-                        shipments.promoteToVip(shipment,Integer.parseInt(dialog.numberOfDays.getText()));
-                    else
-                        JOptionPane.showMessageDialog(null ,"you have to enter a valid day count","error",JOptionPane.ERROR_MESSAGE);
+                else
+                {
+                    if(dialog.checkBox.isSelected()){
+                        if(dialog.numberOfDays.getText()!=null && isFullyInt(dialog.numberOfDays.getText())&&Integer.parseInt(dialog.numberOfDays.getText())>=0)
+                            shipments.promoteToVip(shipment,Integer.parseInt(dialog.numberOfDays.getText()));
+                        else
+                            JOptionPane.showMessageDialog(null ,"you have to enter a valid day count","error",JOptionPane.ERROR_MESSAGE);
 
-                    loadShipments();
+                        loadShipments();
+                    }
                 }
+                shipmentPanel.repaint();
+                loadShipments();
             }
-            shipmentPanel.repaint();
-            loadShipments();
+
         }
     };
 
@@ -130,54 +133,50 @@ public class ShipmentController {
             Shipment []shipment = new Shipment[1];
             boolean[] didBuy = new boolean[1];
             didBuy[0]= false;
+            boolean[] isConfirmed = new boolean[1];
+            isConfirmed[0]=false;
+
 
             dialog.confirmButton.addActionListener(e1->{
                 dialog.dispose();
+                isConfirmed[0]=true;
                 for(AddShipmentDialog.MiniProductPanel miniProductPanel: dialog.miniProductPanels){
                     products.updateProductQuantity(miniProductPanel.product,miniProductPanel.product.getQuantity()-(int)miniProductPanel.quantitySpinner.getValue());
-
                 }
                 for(AddShipmentDialog.MiniProductPanel miniProductPanel: dialog.miniProductPanels){
                 totalCost[0] += miniProductPanel.product.getPrice()*(int)miniProductPanel.quantitySpinner.getValue();
                 if (totalCost[0]!=0)
                 didBuy[0]= true;
-
                 }
                 if(dialog.checkBox.isSelected()){
                     if(isFullyInt(dialog.daysField.getText())&&Integer.parseInt(dialog.daysField.getText())>=0&&dialog.destField.getText().length() >= 2&&didBuy[0])
                         shipment[0] = new Shipment(Integer.parseInt(dialog.daysField.getText()),dialog.destField.getText(),totalCost[0]);
-
                 }
                 else
                 if(dialog.destField.getText().length() >= 2&&didBuy[0])
                     shipment[0] = new Shipment(dialog.destField.getText(),totalCost[0]);
             });
+
             dialog.setVisible(true);
 
-            if(shipment[0]!=null) {
-                if (didBuy[0]) {
+
+            if(isConfirmed[0]){
+                if(shipment[0]!=null) {
+                    if (didBuy[0]) {
                         if (dialog.destField.getText().length() >= 2) {
                             shipmentsPanel.addShipmentPanel(shipment[0]);
                             shipments.insert(shipment[0]);
-                        } else {
 
+                        } else
                             JOptionPane.showMessageDialog(null, "please pick a valid destination   ", "RIP SHIPMENT!!?", JOptionPane.ERROR_MESSAGE);
-                        }
-
-
-
-
-
-
-                } else
-                    JOptionPane.showMessageDialog(null, "you are trying to order nothing  ", "bozo!!?", JOptionPane.ERROR_MESSAGE);
+                    } else
+                        JOptionPane.showMessageDialog(null, "you are trying to order nothing  ", "bozo!!?", JOptionPane.ERROR_MESSAGE);
+                }
+                else
+                    JOptionPane.showMessageDialog(null, "please pick a valid day count   ", "RIP SHIPMENT!!?", JOptionPane.ERROR_MESSAGE);
+                loadShipments();
 
             }
-            else
-                JOptionPane.showMessageDialog(null, "please pick a valid day count   ", "RIP SHIPMENT!!?", JOptionPane.ERROR_MESSAGE);
-
-
-            loadShipments();
         }
     };
 

@@ -17,9 +17,8 @@ public class CustomDialog extends JDialog{
     public JPanel parentPanel;
     public JPanel centerPanel;
     public JCheckBox checkBox;
-
-
-   public JButton confirmButton;
+    public boolean[] isConfirmed = new boolean[1];
+    public JButton confirmButton;
 
    //general(used in edit and add product)
    public CustomDialog(JPanel parentPanel,String l1,String l2,String l3,JTextField name , JTextField price , JTextField amount, JButton confirmButton, JFrame frame){
@@ -32,6 +31,7 @@ public class CustomDialog extends JDialog{
        this.amount=amount;
        this.price = price;
        this.confirmButton=confirmButton;
+       isConfirmed[0]=false;
 
        name = makeEmLookNicer(name);
        amount = makeEmLookNicer(amount);
@@ -88,6 +88,7 @@ public class CustomDialog extends JDialog{
         this.name = name;
         this.confirmButton=confirmButton;
         this.numberOfDays = days;
+        isConfirmed[0]=false;
 
         name = makeEmLookNicer(name);
         setBackground(MainFrame.white);
@@ -166,6 +167,7 @@ public class CustomDialog extends JDialog{
         this.l2=l2;
         this.name = name;
         this.amount=amount;
+        isConfirmed[0]=false;
 
         this.confirmButton=confirmButton;
 
@@ -262,13 +264,10 @@ public class CustomDialog extends JDialog{
         return row;
     }
 
-    ActionListener confirmButtonListener = new ActionListener() {
-        @Override
-        public void actionPerformed(ActionEvent e) {
+    ActionListener confirmButtonListener = e -> {
+        isConfirmed[0]=true;
+        removeAll();
+        dispose();
 
-            removeAll();
-            dispose();
-
-        }
     };
 }
