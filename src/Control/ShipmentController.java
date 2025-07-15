@@ -161,23 +161,28 @@ public class ShipmentController {
 
 
             if(isConfirmed[0]){
-                if(shipment[0]!=null) {
                     if (didBuy[0]) {
                         if (dialog.destField.getText().length() >= 2) {
-                            shipmentsPanel.addShipmentPanel(shipment[0]);
-                            shipments.insert(shipment[0]);
+                            if(dialog.checkBox.isSelected()&&isFullyInt(dialog.daysField.getText())&&Integer.parseInt(dialog.daysField.getText())>=0||!dialog.checkBox.isSelected()) {
+                                shipmentsPanel.addShipmentPanel(shipment[0]);
+                                shipments.insert(shipment[0]);
+                            }
+                            else
+                            {
+                                JOptionPane.showMessageDialog(null, "please pick a valid day count   ", "RIP SHIPMENT!!?", JOptionPane.ERROR_MESSAGE);
+
+                            }
 
                         } else
                             JOptionPane.showMessageDialog(null, "please pick a valid destination   ", "RIP SHIPMENT!!?", JOptionPane.ERROR_MESSAGE);
                     } else
                         JOptionPane.showMessageDialog(null, "you are trying to order nothing  ", "bozo!!?", JOptionPane.ERROR_MESSAGE);
                 }
-                else
-                    JOptionPane.showMessageDialog(null, "please pick a valid day count   ", "RIP SHIPMENT!!?", JOptionPane.ERROR_MESSAGE);
+
                 loadShipments();
 
             }
-        }
+
     };
 
 
