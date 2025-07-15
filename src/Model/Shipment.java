@@ -34,9 +34,34 @@ public class Shipment implements Comparable<Shipment>{
         this.destination = destination;
     }
 
+    public Shipment(int id,int days, String destination, double price) {
+        this.shipmentId = id;
+        //to prevent the past dates and bullying the stupid who would enter a negative number of days
+        //(by adding them to the end of the heap
+        if(days>=0) {
+            this.deliveryDate = today.plusDays(days);
+        }
+        else{
+            this.deliveryDate = date;
+            date=date.plusDays(1);
+        }
+        this.price = price + 15;
+        this.priority = true;
+        this.destination = destination;
+    }
+
     //this one is for the normal shipments where the deliveryDate is generated automatically
     public Shipment(String destination, double price) {
         this.shipmentId = cnt++;
+        this.deliveryDate = date;
+        this.destination = destination;
+        this.price = price;
+        this.priority = false;
+        date=date.plusDays(1);
+    }
+
+    public Shipment(String destination, double price,int id) {
+        this.shipmentId = id;
         this.deliveryDate = date;
         this.destination = destination;
         this.price = price;

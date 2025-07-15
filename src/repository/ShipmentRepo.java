@@ -34,8 +34,7 @@ public class ShipmentRepo {
     public boolean promoteToVip(Shipment shipment,int days){
         Shipment shipment1;
         if (!shipment.isPriority()){
-            shipment1=new Shipment(days, shipment.getDestination(), shipment.getPrice());
-            shipment1.setShipmentId(shipment.getShipmentId());
+            shipment1=new Shipment(shipment.getShipmentId(),days, shipment.getDestination(), shipment.getPrice());
             delete(shipment.getShipmentId());
             insert(shipment1);
         }
@@ -46,8 +45,7 @@ public class ShipmentRepo {
         Shipment shipment1;
             //the minus 15 ,cus the vip shipment has an increased price
             // (it's now a normal shipment so there is no need to the raise)
-            shipment1=new Shipment(shipment.getDestination(),shipment.getPrice()-15);
-            shipment1.setShipmentId(shipment.getShipmentId());
+            shipment1=new Shipment(shipment.getDestination(),shipment.getPrice()-15,shipment.getShipmentId());
             delete(shipment.getShipmentId());
             insert(shipment1);
 
@@ -58,8 +56,7 @@ public class ShipmentRepo {
         Shipment shipment1;
         if(days>=0){
             delete(shipment.getShipmentId());
-            shipment1=new Shipment(days,shipment.getDestination(),shipment.getPrice());
-            shipment1.setShipmentId(shipment.getShipmentId());
+            shipment1=new Shipment(shipment.getShipmentId(),days,shipment.getDestination(),shipment.getPrice());
             insert(shipment1);
             }
 
