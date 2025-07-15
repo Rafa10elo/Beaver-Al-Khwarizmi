@@ -149,17 +149,22 @@ public class Heap {
         if (index == -1) return;
 
         int lastIndex = heap.size() - 1;
-        swap(index,lastIndex);
+
+        if (index == lastIndex) {
+            heap.remove(lastIndex);
+            return;
+        }
+
+        swap(index, lastIndex);
         heap.remove(lastIndex);
 
-        int test2 = shipmentComparator.compare(heap.get(index), heap.get(parent(index)));
         if (index < heap.size()) {
+            int test2 = shipmentComparator.compare(heap.get(index), heap.get(parent(index)));
             if (index > 0 && test2 < 0) {
                 heapifyUp(index);
             } else {
                 heapify(index);
             }
-
         }
     }
 
